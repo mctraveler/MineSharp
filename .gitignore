@@ -1,0 +1,7 @@
+bin/
+*.userprefs
+*~
+*.pidb
+*.suo
+obj/
+zlib/source/zlib.net.mds

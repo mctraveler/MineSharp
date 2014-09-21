@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5596FBFD-FF68-4A5F-A142-1F2334966713}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>MineProxy</RootNamespace>
+    <AssemblyName>MineProxy</AssemblyName>
+    <StartupObject>MineProxy.MainClass</StartupObject>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <Commandlineparameters>5 7</Commandlineparameters>
+    <DebugSymbols>true</DebugSymbols>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG</DefineConstants>
+    <Commandlineparameters>5 5</Commandlineparameters>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>..\3rd\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="MiscUtil">
+      <HintPath>..\3rd\MiscUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\3rd\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\3rd\DotNetZip\zip-v1.9\Release\Ionic.Zip.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="PlayerList.cs" />
+    <Compile Include="ServerCommander.cs" />
+    <Compile Include="Regions\WorldRegion.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Regions\SpawnRegion.cs" />
+    <Compile Include="Regions\SpawnTimeRegion.cs" />
+    <Compile Include="Regions\Honeypot.cs" />
+    <Compile Include="TcpWrapper.cs" />
+    <Compile Include="MinecraftServer.cs" />
+    <Compile Include="Regions\Region.cs" />
+    <Compile Include="Regions\RegionList.cs" />
+    <Compile Include="Debug.cs" />
+    <Compile Include="Commands\Nick.cs" />
+    <Compile Include="Commands\Cloak.cs" />
+    <Compile Include="BackupProxy.cs" />
+    <Compile Include="Packets\PacketFromServer.cs" />
+    <Compile Include="Packets\Packet.cs" />
+    <Compile Include="Packets\PacketFromClient.cs" />
+    <Compile Include="Packets\IEntity.cs" />
+    <Compile Include="Regions\WarZone.cs" />
+    <Compile Include="Worlds\World.cs" />
+    <Compile Include="Worlds\WorldSession.cs" />
+    <Compile Include="Worlds\Construct.cs" />
+    <Compile Include="Worlds\ConstructSession.cs" />
+    <Compile Include="Worlds\Void.cs" />
+    <Compile Include="Worlds\EffectPost.cs" />
+    <Compile Include="Regions\WarpZone.cs" />
+    <Compile Include="Regions\Protected.cs" />
+    <Compile Include="FileSaver.cs" />
+    <Compile Include="Worlds\Hell.cs" />
+    <Compile Include="Worlds\GreenRoom.cs" />
+    <Compile Include="Worlds\TheConstruct.cs" />
+    <Compile Include="Worlds\GreenSession.cs" />
+    <Compile Include="Worlds\HellSession.cs" />
+    <Compile Include="Worlds\TheConstructSession.cs" />
+    <Compile Include="Threads.cs" />
+    <Compile Include="Server\Mob.cs" />
+    <Compile Include="Server\Entity.cs" />
+    <Compile Include="Server\Player.cs" />
+    <Compile Include="Server\Vehicle.cs" />
+    <Compile Include="Regions\RegionLoader.cs" />
+    <Compile Include="Regions\RegionCrossing.cs" />
+    <Compile Include="Regions\Adventure.cs" />
+    <Compile Include="Regions\PublicType.cs" />
+    <Compile Include="GeoIP.cs" />
+    <Compile Include="Worlds\AfkWorld.cs" />
+    <Compile Include="Worlds\AfkSession.cs" />
+    <Compile Include="Worlds\PossessSession.cs" />
+    <Compile Include="Worlds\PossessWorld.cs" />
+    <Compile Include="Worlds\SessionClosedException.cs" />
+    <Compile Include="Data\SlotItem.cs" />
+    <Compile Include="Data\MobType.cs" />
+    <Compile Include="Data\WindowType.cs" />
+    <Compile Include="Data\GameMode.cs" />
+    <Compile Include="Data\Metadata.cs" />
+    <Compile Include="Data\BlockID.cs" />
+    <Compile Include="Data\WoolColor.cs" />
+    <Compile Include="Data\Dimensions.cs" />
+    <Compile Include="Data\Vehicles.cs" />
+    <Compile Include="Data\Face.cs" />
+    <Compile Include="Data\Biomes.cs" />
+    <Compile Include="Data\Block.cs" />
+    <Compile Include="Data\PlayerEffects.cs" />
+    <Compile Include="Data\SoundEffects.cs" />
+    <Compile Include="Antihacks\SpeedGuard.cs" />
+    <Compile Include="Antihacks\LawsOfMinecraft.cs" />
+    <Compile Include="Data\BlockPos.cs" />
+    <Compile Include="Data\RailMeta.cs" />
+    <Compile Include="Data\Animations.cs" />
+    <Compile Include="Data\EntityStatuses.cs" />
+    <Compile Include="PrevException.cs" />
+    <Compile Include="Query\QueryListener.cs" />
+    <Compile Include="Data\SkullMeta.cs" />
+    <Compile Include="Packets\PrecompiledPacket.cs" />
+    <Compile Include="NBT\PlayerDat.cs" />
+    <Compile Include="NBT\Tag.cs" />
+    <Compile Include="NBT\FileNBT.cs" />
+    <Compile Include="NBT\McaFile.cs" />
+    <Compile Include="NBT\McaChunk.cs" />
+    <Compile Include="Clients\Client.Incoming.cs" />
+    <Compile Include="Clients\Client.Auth.cs" />
+    <Compile Include="Clients\BadPlayer.cs" />
+    <Compile Include="Clients\Client.cs" />
+    <Compile Include="Data\ScreenPosition.cs" />
+    <Compile Include="Network\CryptoMC.cs" />
+    <Compile Include="Regions\ScoreboardRegionManager.cs" />
+    <Compile Include="Permissions.cs" />
+    <Compile Include="Misc\Scoreboard.cs" />
+    <Compile Include="Misc\PlayerInteraction.cs" />
+    <Compile Include="Misc\Rules.cs" />
+    <Compile Include="Settings\Settings.cs" />
+    <Compile Include="Misc\Inbox.cs" />
+    <Compile Include="Misc\Lag.cs" />
+    <Compile Include="Packets\FromServer\AttachEntity.cs" />
+    <Compile Include="Packets\FromServer\BlockAction.cs" />
+    <Compile Include="Packets\FromServer\BlockBreakAnimation.cs" />
+    <Compile Include="Packets\FromServer\BlockChange.cs" />
+    <Compile Include="Packets\FromServer\ChunkData.cs" />
+    <Compile Include="Packets\FromServer\ChunkDataBulk.cs" />
+    <Compile Include="Packets\FromServer\CollectItem.cs" />
+    <Compile Include="Packets\FromServer\EntityEquipment.cs" />
+    <Compile Include="Packets\FromServer\EntityHeadYaw.cs" />
+    <Compile Include="Packets\FromServer\EntityLook.cs" />
+    <Compile Include="Packets\FromServer\EntityMetadata.cs" />
+    <Compile Include="Packets\FromServer\EntityPacket.cs" />
+    <Compile Include="Packets\FromServer\EntityRelativeMove.cs" />
+    <Compile Include="Packets\FromServer\EntityStatus.cs" />
+    <Compile Include="Packets\FromServer\EntityTeleport.cs" />
+    <Compile Include="Packets\FromServer\EntityVelocity.cs" />
+    <Compile Include="Packets\FromServer\Explosion.cs" />
+    <Compile Include="Packets\FromServer\IncrementStatistic.cs" />
+    <Compile Include="Packets\FromServer\MultiBlockChange.cs" />
+    <Compile Include="Packets\FromServer\PlayerListItem.cs" />
+    <Compile Include="Packets\FromServer\RemoveEntityEffect.cs" />
+    <Compile Include="Packets\FromServer\ScoreboardShow.cs" />
+    <Compile Include="Packets\FromServer\ScoreboardUpdate.cs" />
+    <Compile Include="Packets\FromServer\SetSlot.cs" />
+    <Compile Include="Packets\FromServer\SpawnMob.cs" />
+    <Compile Include="Packets\FromServer\SpawnObject.cs" />
+    <Compile Include="Packets\FromServer\SpawnPosition.cs" />
+    <Compile Include="Packets\FromServer\TeamUpdate.cs" />
+    <Compile Include="Packets\FromServer\TimeUpdate.cs" />
+    <Compile Include="Packets\FromServer\UpdateHealth.cs" />
+    <Compile Include="Packets\FromServer\UseBed.cs" />
+    <Compile Include="Packets\FromServer\WindowItems.cs" />
+    <Compile Include="Packets\FromServer\WindowOpen.cs" />
+    <Compile Include="Packets\FromServer\WindowProperty.cs" />
+    <Compile Include="Packets\FromClient\CreativeInventory.cs" />
+    <Compile Include="Packets\FromClient\EnchantItem.cs" />
+    <Compile Include="Packets\FromClient\EntityAction.cs" />
+    <Compile Include="Packets\FromClient\PlayerBlockPlacement.cs" />
+    <Compile Include="Packets\FromClient\PlayerDigging.cs" />
+    <Compile Include="Packets\FromClient\PlayerGround.cs" />
+    <Compile Include="Packets\FromClient\UseEntity.cs" />
+    <Compile Include="Packets\FromClient\WindowClick.cs" />
+    <Compile Include="Packets\FromServer\EntityLookRelativeMove.cs" />
+    <Compile Include="Packets\Handshake\EncryptionRequest.cs" />
+    <Compile Include="Packets\Handshake\EncryptionResponse.cs" />
+    <Compile Include="Network\ProtocolVersion.cs" />
+    <Compile Include="Commands\UsageException.cs" />
+    <Compile Include="Commands\ErrorException.cs" />
+    <Compile Include="Commands\CommandManager.cs" />
+    <Compile Include="Commands\Help.cs" />
+    <Compile Include="Commands\Admin.cs" />
+    <Compile Include="Commands\Players.cs" />
+    <Compile Include="Commands\ChatCommands.cs" />
+    <Compile Include="Commands\ShowHelpException.cs" />
+    <Compile Include="Commands\RegionCommands.cs" />
+    <Compile Include="Chatting\Entry.cs" />
+    <Compile Include="Chatting\Chat.cs" />
+    <Compile Include="Chatting\ChatExtensions.cs" />
+    <Compile Include="Chatting\Parser.cs" />
+    <Compile Include="Chatting\Format.cs" />
+    <Compile Include="Chatting\Spelling.cs" />
+    <Compile Include="Chatting\ServerParser.cs" />
+    <Compile Include="Chatting\Cause.cs" />
+    <Compile Include="Commands\TexturePackSetter.cs" />
+    <Compile Include="Commands\MainCommands.cs" />
+    <Compile Include="Worlds\VanillaWorldCommands.cs" />
+    <Compile Include="Worlds\VanillaWorld.cs" />
+    <Compile Include="Worlds\VanillaSession.cs" />
+    <Compile Include="Chatting\Translate.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Packets\FromServer\Particle.cs" />
+    <Compile Include="Regions\WarpPortalVisuals.cs" />
+    <Compile Include="Clients\Client.RunVar.cs" />
+    <Compile Include="Misc\SendQueue.cs" />
+    <Compile Include="Packets\PrecompiledPacketStream.cs" />
+    <Compile Include="Packets\FromClient\Steer.cs" />
+    <Compile Include="Antihacks\OreTracker.cs" />
+    <Compile Include="Packets\FromServer\EntityProperties.cs" />
+    <Compile Include="Regions\Preserved.cs" />
+    <Compile Include="Clients\VanillaClient.cs" />
+    <Compile Include="Clients\ChatClient.cs" />
+    <Compile Include="Clients\VanillaClient.Auth.cs" />
+    <Compile Include="Chatting\JsonCreationConverter.cs" />
+    <Compile Include="Chatting\ChatEvent.cs" />
+    <Compile Include="Packets\FromServer\JoinGame.cs" />
+    <Compile Include="Packets\FromServer\SpawnPlayer.cs" />
+    <Compile Include="Packets\FromServer\SpawnPainting.cs" />
+    <Compile Include="Packets\FromServer\SpawnExperienceOrb.cs" />
+    <Compile Include="Packets\FromServer\DestroyEntities.cs" />
+    <Compile Include="Packets\FromServer\Effect.cs" />
+    <Compile Include="Packets\FromServer\SoundEffect.cs" />
+    <Compile Include="Packets\FromServer\ChangeGameState.cs" />
+    <Compile Include="Packets\FromServer\SpawnGlobalEntity.cs" />
+    <Compile Include="Packets\FromServer\Maps.cs" />
+    <Compile Include="Packets\FromServer\UpdateBlockEntity.cs" />
+    <Compile Include="Packets\FromServer\SignEditorOpen.cs" />
+    <Compile Include="Packets\Data\ScoreAction.cs" />
+    <Compile Include="Packets\Plugins\MCItemName.cs" />
+    <Compile Include="Packets\Plugins\MCBook.cs" />
+    <Compile Include="Packets\Plugins\TexturePackMessage.cs" />
+    <Compile Include="Packets\Data\GameState.cs" />
+    <Compile Include="Packets\FromClient\ChatMessageClient.cs" />
+    <Compile Include="Packets\FromServer\ChatMessageServer.cs" />
+    <Compile Include="Packets\FromServer\KeepAlivePing.cs" />
+    <Compile Include="Packets\FromClient\KeepAlivePong.cs" />
+    <Compile Include="Packets\FromClient\PlayerLook.cs" />
+    <Compile Include="Packets\FromClient\PlayerPosition.cs" />
+    <Compile Include="Packets\FromServer\PlayerPositionLookServer.cs" />
+    <Compile Include="Packets\FromClient\PlayerPositionLookClient.cs" />
+    <Compile Include="Packets\FromServer\HeldItemServer.cs" />
+    <Compile Include="Packets\FromClient\HeldItemClient.cs" />
+    <Compile Include="Packets\FromServer\TabComplete.cs" />
+    <Compile Include="Packets\FromClient\TabCompleteClient.cs" />
+    <Compile Include="Packets\FromServer\Animation.cs" />
+    <Compile Include="Packets\FromClient\AnimationClient.cs" />
+    <Compile Include="Packets\FromClient\WindowCloseClient.cs" />
+    <Compile Include="Packets\FromServer\WindowCloseServer.cs" />
+    <Compile Include="Packets\FromServer\ConfirmTransactionServer.cs" />
+    <Compile Include="Packets\FromClient\ConfirmTransactionClient.cs" />
+    <Compile Include="Packets\FromServer\UpdateSign.cs" />
+    <Compile Include="Packets\FromClient\PlayerAbilities.cs" />
+    <Compile Include="Packets\FromServer\PlayerAbilitiesServer.cs" />
+    <Compile Include="Packets\Plugins\PluginMessageFromClient.cs" />
+    <Compile Include="Packets\Plugins\PluginMessageFromServer.cs" />
+    <Compile Include="Packets\Plugins\UnknownPluginMessageServer.cs" />
+    <Compile Include="Packets\Plugins\UnknownPluginMessageClient.cs" />
+    <Compile Include="Packets\FromClient\ClientStatus.cs" />
+    <Compile Include="Packets\FromServer\Disconnect.cs" />
+    <Compile Include="Packets\FromServer\EntityEffect.cs" />
+    <Compile Include="Packets\FromServer\SetExperience.cs" />
+    <Compile Include="Packets\Handshake\LoginStart.cs" />
+    <Compile Include="Packets\Handshake\Handshake.cs" />
+    <Compile Include="Packets\PacketReader.cs" />
+    <Compile Include="Packets\Handshake\HandshakeState.cs" />
+    <Compile Include="Packets\Handshake\LoginSuccess.cs" />
+    <Compile Include="Packets\Status\ServerStatusResponse.cs" />
+    <Compile Include="Packets\Status\ServerPing.cs" />
+    <Compile Include="Packets\Status\ServerPong.cs" />
+    <Compile Include="Packets\Status\ServerStatus.cs" />
+    <Compile Include="Misc\Attacked.cs" />
+    <Compile Include="Network\Authentication.cs" />
+    <Compile Include="Antihacks\Banned.cs" />
+    <Compile Include="Currency\Donors.cs" />
+    <Compile Include="Packets\FromServer\Respawn.cs" />
+    <Compile Include="Packets\Handshake\DisconnectHandshake.cs" />
+    <Compile Include="Control\ControlListener.cs" />
+    <Compile Include="Control\ControllerThread.cs" />
+    <Compile Include="Control\ChatEntry.cs" />
+    <Compile Include="Control\Player.cs" />
+    <Compile Include="Control\PlayersUpdate.cs" />
+    <Compile Include="Control\ControlMessage.cs" />
+    <Compile Include="Control\Kick.cs" />
+    <Compile Include="Control\Ban.cs" />
+    <Compile Include="Control\Pardon.cs" />
+    <Compile Include="Control\RegionControl.cs" />
+    <Compile Include="Control\Restart.cs" />
+    <Compile Include="Control\TpPlayer.cs" />
+    <Compile Include="Clients\ClientStats.cs" />
+    <Compile Include="Regions\RegionStats.cs" />
+    <Compile Include="Antihacks\BlackList.cs" />
+    <Compile Include="Misc\CoordDouble.cs" />
+    <Compile Include="Misc\CoordInt.cs" />
+    <Compile Include="Misc\Json.cs" />
+    <Compile Include="Clients\ClientSettings.cs" />
+    <Compile Include="Clients\Client.Persistent.cs" />
+    <Compile Include="Network\ProtocolException.cs" />
+    <Compile Include="Clients\LegacyStatus.cs" />
+    <Compile Include="Packets\FromServer\ServerDifficulty.cs" />
+    <Compile Include="Packets\FromServer\CombatEvent.cs" />
+    <Compile Include="Packets\FromServer\Camera.cs" />
+    <Compile Include="Packets\FromServer\ScoreboardObjective.cs" />
+    <Compile Include="Packets\FromServer\WorldBorder.cs" />
+    <Compile Include="Packets\FromClient\UpdateSign.cs" />
+    <Compile Include="Packets\FromClient\ClientSettings.cs" />
+    <Compile Include="Chatting\ChatJson.cs" />
+    <Compile Include="Chatting\ChatJsonConverter.cs" />
+    <Compile Include="Chatting\ChatPosition.cs" />
+    <Compile Include="Packets\FromClient\Spectate.cs" />
+    <Compile Include="Packets\FromServer\PassThroughServer.cs" />
+    <Compile Include="Packets\FromClient\PassThroughClient.cs" />
+    <Compile Include="Packets\PassThrough.cs" />
+    <Compile Include="Network\UsernameUUID.cs" />
+    <Compile Include="Packets\FromServer\PlayerListHeaderFooter.cs" />
+    <Compile Include="Packets\Handshake\SetCompression.cs" />
+    <Compile Include="Packets\Compression.cs" />
+    <Compile Include="Packets\FromServer\ResourcePackSend.cs" />
+    <Compile Include="Packets\FromClient\ResourcePackStatus.cs" />
+    <Compile Include="Packets\FromServer\UpdateEntityNBT.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Packets\" />
+    <Folder Include="Regions\" />
+    <Folder Include="Commands\" />
+    <Folder Include="Worlds\" />
+    <Folder Include="Server\" />
+    <Folder Include="Antihacks\" />
+    <Folder Include="Query\" />
+    <Folder Include="NBT\" />
+    <Folder Include="Clients\" />
+    <Folder Include="Network\" />
+    <Folder Include="Misc\" />
+    <Folder Include="Settings\" />
+    <Folder Include="Packets\FromServer\" />
+    <Folder Include="Packets\FromClient\" />
+    <Folder Include="Packets\Handshake\" />
+    <Folder Include="Currency\" />
+    <Folder Include="Chatting\" />
+    <Folder Include="Packets\Data\" />
+    <Folder Include="Packets\Plugins\" />
+    <Folder Include="Packets\Status\" />
+    <Folder Include="Control\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GeoIPCountryWhois.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="PrefixedHierarchical" ResourceNamePolicy="FileFormatDefault" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>

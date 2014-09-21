@@ -1,0 +1,72 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MineProxy", "MineProxy\MineProxy.csproj", "{5596FBFD-FF68-4A5F-A142-1F2334966713}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MineWrapper", "MineWrapper\MineWrapper.csproj", "{319D962B-9D65-40B6-A75C-F69A7573AC05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MineControl", "MineControl\MineControl.csproj", "{619E2E18-7167-493E-9F76-FFA1752E4252}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|Any CPU = Release|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{319D962B-9D65-40B6-A75C-F69A7573AC05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{319D962B-9D65-40B6-A75C-F69A7573AC05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5596FBFD-FF68-4A5F-A142-1F2334966713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5596FBFD-FF68-4A5F-A142-1F2334966713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5596FBFD-FF68-4A5F-A142-1F2334966713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5596FBFD-FF68-4A5F-A142-1F2334966713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{619E2E18-7167-493E-9F76-FFA1752E4252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{619E2E18-7167-493E-9F76-FFA1752E4252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = MineProxy\MineProxy.csproj
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.inheritsSet = VisualStudio
+		$1.inheritsScope = text/plain
+		$1.scope = text/x-csharp
+		$0.TextStylePolicy = $2
+		$2.inheritsSet = VisualStudio
+		$2.inheritsScope = text/plain
+		$2.scope = text/plain
+		$0.CSharpFormattingPolicy = $3
+		$3.IndentSwitchBody = True
+		$3.IndentBlocksInsideExpressions = True
+		$3.AnonymousMethodBraceStyle = NextLine
+		$3.PropertyBraceStyle = NextLine
+		$3.PropertyGetBraceStyle = NextLine
+		$3.PropertySetBraceStyle = NextLine
+		$3.EventBraceStyle = NextLine
+		$3.EventAddBraceStyle = NextLine
+		$3.EventRemoveBraceStyle = NextLine
+		$3.StatementBraceStyle = NextLine
+		$3.ElseNewLinePlacement = NewLine
+		$3.CatchNewLinePlacement = NewLine
+		$3.FinallyNewLinePlacement = NewLine
+		$3.WhileNewLinePlacement = DoNotCare
+		$3.ArrayInitializerWrapping = DoNotChange
+		$3.ArrayInitializerBraceStyle = NextLine
+		$3.BeforeMethodDeclarationParentheses = False
+		$3.BeforeMethodCallParentheses = False
+		$3.BeforeConstructorDeclarationParentheses = False
+		$3.NewLineBeforeConstructorInitializerColon = NewLine
+		$3.NewLineAfterConstructorInitializerColon = SameLine
+		$3.BeforeDelegateDeclarationParentheses = False
+		$3.NewParentheses = False
+		$3.SpacesBeforeBrackets = False
+		$3.inheritsSet = Mono
+		$3.inheritsScope = text/x-csharp
+		$3.scope = text/x-csharp
+		$0.TextStylePolicy = $4
+		$4.inheritsSet = VisualStudio
+		$4.inheritsScope = text/plain
+		$4.scope = text/csv
+		$0.DotNetNamingPolicy = $5
+		$5.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$5.ResourceNamePolicy = FileFormatDefault
+	EndGlobalSection
+EndGlobal
