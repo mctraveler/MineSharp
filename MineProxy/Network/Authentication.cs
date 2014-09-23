@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.IO;
 using System.Text;
+using MineProxy.Network;
 
 namespace MineProxy
 {
@@ -18,7 +19,7 @@ namespace MineProxy
 
         static readonly TimeSpan loginSeparation = TimeSpan.FromSeconds(1);
 
-        public static string VerifyUserLogin(string username, byte[] sharedKey, byte[] serverId)
+        public static AuthResponse VerifyUserLogin(string username, byte[] sharedKey, byte[] serverId)
         {
             lock (loginLock)
             {
@@ -40,11 +41,13 @@ namespace MineProxy
                 ms.Write(sid, 0, sid.Length);
                 ms.Write(sharedKey, 0, sharedKey.Length);
                 ms.Write(MinecraftServer.RsaBytes, 0, MinecraftServer.RsaBytes.Length);
+                ms.Write(Encoding.ASCII.GetBytes("Hell"), 0, 4);
                 byte[] bHash = sha.ComputeHash(ms.ToArray());
                 hash = McHex(bHash);
             }
 
-            string url = "http://session.minecraft.net/game/checkserver.jsp?user=" + username + "&serverId=" + hash;
+            //Or should hash be the serverID only?
+            string url = "https://sessionserver.mojang.com/session/minecraft/hasJoined?username=" + username + "&serverId=" + hash;
             try
             {
                 using (WebClient client = new WebClient())
@@ -54,39 +57,33 @@ namespace MineProxy
 
                     // Download data.
                     byte[] resp = client.DownloadData(url);
+                    var authResponse = Json.Deserialize<AuthResponse>(resp);
+                    #if DEBUG
                     string r = Encoding.ASCII.GetString(resp);
-                    if (r != "YES")
-                    {
-                        Debug.WriteLine("Auth: Failed login.minecraft.net expected YES got: " + r);
-                        Debug.WriteLine("ServerID: " + McHex(serverId));
-                        Debug.WriteLine("Hash: " + hash);
-                        return r;
-                    }
-
-                    Debug.WriteLine("Auth: Success login.minecraft.net said YES");
-                    Debug.WriteLine("ServerID: " + McHex(serverId));
-                    Debug.WriteLine("Hash: " + hash);
-                    return null; //no error == success
+                    Console.WriteLine(r);
+                    #endif
+                    return authResponse;
                 }
-            } catch (WebException we)
+            }
+            catch (WebException we)
             {
-                return we.Message;
+                return new AuthResponse();
             }
         }
 
         public static string McHex(byte[] hex)
         {
             string s = BitConverter.ToString(hex).Replace("-", "");
-            if ((hex [0] & 0x80) == 0)
+            if ((hex[0] & 0x80) == 0)
                 return s.TrimStart('0');
             byte[] inv = new byte[hex.Length];
 
             //Inverse all bytes and add a "-"
             for (int n = hex.Length - 1; n >= 0; n--)
             {
-                inv [n] = (byte)~hex [n];
+                inv[n] = (byte)~hex[n];
             }
-            inv [inv.Length - 1] += 1;
+            inv[inv.Length - 1] += 1;
             s = "-" + BitConverter.ToString(inv).Replace("-", "");
             return s;
         }

@@ -137,27 +137,20 @@ namespace MineProxy.Clients
             clientThread.State = "Handshake: loading proxy data";
             Settings = LoadProxyPlayer(unverifiedUsername);
 
-            if (IPAddress.IsLoopback(RemoteEndPoint.Address))
+            clientThread.State = "Handshake: Verifying login credentials";
+            var auth = Authentication.VerifyUserLogin(unverifiedUsername, cryptoStream.SharedKey, ID);
+            #warning From here we now need to take care of the id in the response.
+            if (auth == null)
             {
-                MinecraftUsername = unverifiedUsername;
-                Log.WritePlayer(this, "Succesful login from (local) " + RemoteEndPoint);
+                //Unauthorized
+                Log.WriteAuthFail(unverifiedUsername, RemoteEndPoint, "" + auth);
+                Close("Mojang says " + auth);
+                return;
             }
             else
             {
-                clientThread.State = "Handshake: Verifying login credentials";
-                string error = Authentication.VerifyUserLogin(unverifiedUsername, cryptoStream.SharedKey, ID);
-                if (error != null)
-                {
-                    //Unauthorized
-                    Log.WriteAuthFail(unverifiedUsername, RemoteEndPoint, error);
-                    Close("Mojang says " + error);
-                    return;
-                }
-                else
-                {
-                    MinecraftUsername = unverifiedUsername;
-                    Log.WritePlayer(this, "Login from " + RemoteEndPoint + " " + Country);
-                }
+                MinecraftUsername = unverifiedUsername;
+                Log.WritePlayer(this, "Login from " + RemoteEndPoint + " " + Country);
             }
             clientThread.State = "Handshake: Logged in";
 
