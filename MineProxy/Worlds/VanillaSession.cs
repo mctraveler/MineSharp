@@ -262,7 +262,7 @@ namespace MineProxy.Worlds
                         phase = Phases.FinalClose;
                         return;
                     }
-                    catch (IOException ioe)
+                    catch (IOException)
                     {
                         phase = Phases.FinalClose;
                         return;

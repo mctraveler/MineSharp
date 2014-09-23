@@ -11,7 +11,6 @@ namespace MineProxy.RuleBook
 {
     public static class Rules
     {
-        static List<TagString> Pages;
         static TagCompound Content;
 
         public static void Load(string path)
@@ -67,13 +66,13 @@ namespace MineProxy.RuleBook
             try
             {
                 var list = b.Content ["pages"].ToListString();
-
-                if (list.Count != Pages.Count)
+                var book = Content ["pages"].ToListString();
+                if (list.Count != book.Count)
                     return;
 
                 for (int p = 0; p < list.Count; p++)
                 {
-                    if (list [p].String != Pages [p].String)
+                    if (list [p].String != book [p].String)
                         return;
                 }
 

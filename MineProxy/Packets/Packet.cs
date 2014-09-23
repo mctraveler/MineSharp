@@ -140,9 +140,9 @@ namespace MineProxy.Packets
                 //End of check
 
                 if ((b & 0x80) == 0)
-                    return val | b << (7 * n);
+                    return val | (long)b << (7 * n);
 
-                val |= (b & 0x7F) << (7 * n);
+                val |= ((long)b & 0x7F) << (7 * n);
             }
 
             throw new InvalidDataException("Too big");

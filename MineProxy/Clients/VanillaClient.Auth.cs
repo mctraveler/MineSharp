@@ -38,10 +38,6 @@ namespace MineProxy.Clients
             #endif
         }
 
-        #if DEBUG
-        static int logincount = 0;
-        #endif
-
         /// <summary>
         /// Return false if disconnect/finished
         /// </summary>

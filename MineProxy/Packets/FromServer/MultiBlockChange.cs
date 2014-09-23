@@ -37,7 +37,7 @@ namespace MineProxy.Packets
         {
             X = r.ReadInt32();
             Z = r.ReadInt32();
-            int ArraySize = ReadVarInt(r);
+            //int ArraySize = ReadVarInt(r);
             throw new NotImplementedException();
         }
 
