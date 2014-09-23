@@ -4,6 +4,7 @@ namespace MineProxy.Data
 {
     public enum EntityStatuses
     {
+        //random comment
         Unknown1 = 1,
         EntityHurt = 2,
         EntityDead = 3,
