@@ -26,7 +26,7 @@ namespace MineWrapper
 
         public static void Main()
         {
-            Directory.SetCurrentDirectory("/home/traveler");
+            Directory.SetCurrentDirectory(MineSharp.Settings.BaseWorldsPath);
 
             Console.WriteLine("Hello Minecraft World!");
             

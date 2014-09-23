@@ -19,7 +19,7 @@ namespace MineProxy
             //Bug workaround
             System.Web.Util.HttpEncoder.Current = System.Web.Util.HttpEncoder.Default;
 
-            Directory.SetCurrentDirectory("/home/traveler");
+            Directory.SetCurrentDirectory(MineSharp.Settings.BaseWorldsPath);
             Console.WriteLine();
             Console.WriteLine("Starting Mineproxy: " + DateTime.Now);
             Log.Init();

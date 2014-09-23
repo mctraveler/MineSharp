@@ -42,6 +42,9 @@
     <Compile Include="PlayerHistory.cs" />
     <Compile Include="TextInput.cs" />
     <Compile Include="TiledMapPainter.cs" />
+    <Compile Include="..\Settings.cs">
+      <Link>Settings.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />

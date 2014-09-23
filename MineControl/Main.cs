@@ -10,7 +10,7 @@ namespace MineControl
     {
         public static void Main()
         {
-            Directory.SetCurrentDirectory("/home/nuxas/wrapperTest");
+            Directory.SetCurrentDirectory(MineSharp.Settings.BaseWorldsPath);
             Application.SetCompatibleTextRenderingDefault(true);
 			
             using (ControlWindow window = new ControlWindow())

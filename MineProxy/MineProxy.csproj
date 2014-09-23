@@ -333,6 +333,9 @@
     <Compile Include="Packets\FromServer\ResourcePackSend.cs" />
     <Compile Include="Packets\FromClient\ResourcePackStatus.cs" />
     <Compile Include="Packets\FromServer\UpdateEntityNBT.cs" />
+    <Compile Include="..\Settings.cs">
+      <Link>Settings.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

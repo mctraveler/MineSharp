@@ -41,6 +41,9 @@
     <Compile Include="Watchdog.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="InvalidArgumentException.cs" />
+    <Compile Include="..\Settings.cs">
+      <Link>Settings.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

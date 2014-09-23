@@ -35,9 +35,9 @@ namespace MineWrapper
 
             string argsPath = Path.Combine(psi.WorkingDirectory, "args");
             if (File.Exists(argsPath))
-                psi.Arguments = File.ReadAllText(argsPath) + " -jar /home/bin/minecraft_server.jar nogui";
+                psi.Arguments = File.ReadAllText(argsPath) + " -jar " + MineSharp.Settings.MinecraftServerJar + " nogui";
             else
-                psi.Arguments = "-Xincgc -jar /home/bin/minecraft_server.jar nogui";
+                psi.Arguments = "-Xincgc -jar " + MineSharp.Settings.MinecraftServerJar + " nogui";
 
             psi.CreateNoWindow = true;
             psi.RedirectStandardError = true;
