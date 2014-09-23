@@ -1,5 +1,7 @@
 using System;
 
+/// Copy this file to Settings.cs and configure according to the documentation below
+
 namespace MineSharp
 {
     class Settings

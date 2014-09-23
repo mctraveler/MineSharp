@@ -5,3 +5,4 @@ bin/
 *.suo
 obj/
 zlib/source/zlib.net.mds
+Settings.cs
