@@ -19,6 +19,10 @@ namespace MineProxy
 
         static readonly TimeSpan loginSeparation = TimeSpan.FromSeconds(1);
 
+        /// <summary>
+        /// Help from
+        /// http://wiki.vg/Protocol_Encryption#Server
+        /// </summary>
         public static AuthResponse VerifyUserLogin(string username, byte[] sharedKey, byte[] serverId)
         {
             lock (loginLock)
