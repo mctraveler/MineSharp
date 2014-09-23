@@ -35,7 +35,9 @@ namespace MineWrapper
             Thread tcpListener = new Thread(TcpListener);
             tcpListener.Start();
 
+            #if !DEBUG
             BackupThread.Start();
+            #endif
 
             Console.WriteLine("Control Listening on port: " + ControlPort);
 
