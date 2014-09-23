@@ -335,6 +335,7 @@
     <Compile Include="..\Settings.cs">
       <Link>Settings.cs</Link>
     </Compile>
+    <Compile Include="Network\AuthResponse.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
