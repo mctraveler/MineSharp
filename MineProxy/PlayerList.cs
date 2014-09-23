@@ -343,7 +343,9 @@ namespace MineProxy
                 }
                 
                 //Debug.WriteLine("Player list Updater Thread Run");
+                #if !DEBUG
                 Threads.WatchdogCheck();
+                #endif
                 
                 //Update external replies
                 UpdateServerListPingReply();
