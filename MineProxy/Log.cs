@@ -88,7 +88,7 @@ namespace MineProxy
                 DisposeClose(ref playerLog, logPlayerPath);
                 DisposeClose(ref signLog, logSignsPath);
                 DisposeClose(ref bookLog, logBooksPath);
-                DisposeClose(ref exceptions, logExceptionPath, " " + DateTime.Now.ToString("HH':'mm"));
+                DisposeClose(ref exceptions, logExceptionPath, " " + DateTime.Now.ToString("HH'.'mm"));
                 DisposeClose(ref proxychat, logChatPath);
                 DisposeClose(ref actionLog, logActionPath);
                 DisposeClose(ref regionLog, logRegionPath);
