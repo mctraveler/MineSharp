@@ -56,6 +56,8 @@ namespace MineProxy.Network
 
                 SubjectPublicKeyInfo publicKeyInfo = SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(keyPair.Public);
                 byte[] bytePub = publicKeyInfo.ToAsn1Object().GetDerEncoded();
+
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
                 File.WriteAllBytes(path + ".pub", bytePub);
 
                 PrivateKeyInfo privateKeyInfo = PrivateKeyInfoFactory.CreatePrivateKeyInfo(keyPair.Private);                        
