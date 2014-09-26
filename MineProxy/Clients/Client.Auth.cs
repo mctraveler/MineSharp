@@ -73,7 +73,7 @@ namespace MineProxy
                 string nick = MinecraftUsername;
                 if (nick == null)
                     nick = "someone";
-                Chatting.Parser.TellAdmin(Permissions.Ban, Chat.Gray + nick + " was kicked: " + message);
+                Chatting.Parser.TellAdmin(Chat.Gray + nick + " was kicked: " + message);
                 Close(message);
             }
             catch (Exception e)
@@ -82,30 +82,9 @@ namespace MineProxy
             }
         }
 
-        public bool Admin(Permissions test)
+        public bool Admin()
         {
-            if (MinecraftServer.Admins.ContainsKey(MinecraftUsername) == false)
-                return false;
-            
-            var p = MinecraftServer.Admins[MinecraftUsername];
-            return (p & test) == test;
-        }
-
-        /// <summary>
-        /// Return true if player has any of the permissions
-        /// </summary>
-        /// <returns><c>true</c>, if any was admined, <c>false</c> otherwise.</returns>
-        /// <param name="test">Test.</param>
-        public bool AdminAny(Permissions test)
-        {
-            if (MinecraftServer.Admins.ContainsKey(MinecraftUsername) == false)
-                return false;
-
-            if (test == Permissions.AnyAdmin)
-                return true;
-
-            var p = MinecraftServer.Admins[MinecraftUsername];
-            return (p & test) != 0;
+            return MinecraftServer.Admins.Contains(MinecraftUsername);
         }
 
         public bool Donor { get { return Donors.IsDonor(this); } }

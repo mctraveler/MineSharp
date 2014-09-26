@@ -101,7 +101,7 @@ namespace MineProxy
                     b.BannedUntil = DateTime.Now;
                 }
                 SaveBanned();
-                Chatting.Parser.TellAdmin(Permissions.Ban, "Masspardon: pardoned " + pardoned + " players");
+                Chatting.Parser.TellAdmin("Masspardon: pardoned " + pardoned + " players");
             }
         }
 
@@ -120,7 +120,7 @@ namespace MineProxy
 
         public static void Ban(Client admin, string username, DateTime bannedUntil, string reason)
         {
-            if (admin != null && admin.Admin(Permissions.Ban) == false)
+            if (admin != null && admin.Admin() == false)
             {
                 admin.TellSystem(Chat.Yellow, "Disabled");
                 return;
@@ -213,7 +213,7 @@ namespace MineProxy
                         continue;
 
                     //Remove history
-                    if (admin.Admin(Permissions.Ban) && b.BannedUntil < DateTime.Now)
+                    if (admin.Admin() && b.BannedUntil < DateTime.Now)
                     {
                         blacklist.List.Remove(b);
                         SaveBanned();
@@ -227,7 +227,7 @@ namespace MineProxy
             }
             if (pardoned != null)
             {
-                if (admin != null && admin.Admin(Permissions.Ban) == false && pardoned.BannedUntil > DateTime.Now.AddMinutes(30))
+                if (admin != null && admin.Admin() == false && pardoned.BannedUntil > DateTime.Now.AddMinutes(30))
                 {
                     admin.TellSystem(Chat.Purple, "Sorry players banned for longer periods of time cannot be pardoned");
                     return;

@@ -91,7 +91,7 @@ namespace MineProxy.Misc
                     {
                         string msg = "found " + Diamonds + " " + si.ItemID + " last " + minuteLimit + " minutes";
                         Log.WritePlayer(client, msg);
-                        Chatting.Parser.TellAdmin(Permissions.Ban, client.MinecraftUsername + " " + msg);
+                        Chatting.Parser.TellAdmin(client.MinecraftUsername + " " + msg);
                     }
                     break;
                     

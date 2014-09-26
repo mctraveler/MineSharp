@@ -116,15 +116,15 @@ namespace MineProxy
                     if (b == null)
                     {
                         Log.WritePlayer(player, "AKA " + u);
-                        Chatting.Parser.TellAdmin(Permissions.Ban, Chat.Purple + player.MinecraftUsername + Chat.Aqua + " AKA " + Chat.Yellow + u);
+                        Chatting.Parser.TellAdmin(Chat.Purple + player.MinecraftUsername + Chat.Aqua + " AKA " + Chat.Yellow + u);
                     }
                     else
                     {
                         Log.WritePlayer(player, "AKA " + b);
                         if (b.BannedUntil < DateTime.Now)
-                            Chatting.Parser.TellAdmin(Permissions.Ban, Chat.Purple + player.MinecraftUsername + Chat.Aqua + " AKA " + Chat.DarkRed + u + Chat.White + " Expired: " + b.Reason);
+                            Chatting.Parser.TellAdmin(Chat.Purple + player.MinecraftUsername + Chat.Aqua + " AKA " + Chat.DarkRed + u + Chat.White + " Expired: " + b.Reason);
                         else
-                            Chatting.Parser.TellAdmin(Permissions.Ban, Chat.Purple + player.MinecraftUsername + Chat.Aqua + " AKA " + Chat.Red + u + Chat.White + " " + b.Reason);
+                            Chatting.Parser.TellAdmin(Chat.Purple + player.MinecraftUsername + Chat.Aqua + " AKA " + Chat.Red + u + Chat.White + " " + b.Reason);
 
                     }
                 }
@@ -197,7 +197,7 @@ namespace MineProxy
                 //Report old bans to admin
                 BadPlayer bp = Banned.GetBanHistory(player.MinecraftUsername);
                 if (bp != null)
-                    Chatting.Parser.TellAdmin(Permissions.Ban, "BanHistory: " + bp.BannedUntil.ToString("yyyy-MM-dd") + " " + bp.Reason);
+                    Chatting.Parser.TellAdmin("BanHistory: " + bp.BannedUntil.ToString("yyyy-MM-dd") + " " + bp.Reason);
 
             }
 

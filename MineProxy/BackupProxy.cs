@@ -60,8 +60,8 @@ namespace MineProxy
                             reason = "Restarting Proxy";
                         } else if (proxyCountdown < 0)
                         {
-                            Chatting.Parser.TellAdmin(Permissions.Server, "Failed to read Mem status, not until, " + next.ToShortTimeString());
-                            Chatting.Parser.TellAdmin(Permissions.Server, "use /proxystop to restart now");
+                            Chatting.Parser.TellAdmin("Failed to read Mem status, not until, " + next.ToShortTimeString());
+                            Chatting.Parser.TellAdmin("use /proxystop to restart now");
                         }
                     } else if (mu.Quota > 0.88)
                     {
@@ -74,8 +74,8 @@ namespace MineProxy
                             reason = "High Memory Usage, Restart";
                         } else if (vanillaCountdown < 0)
                         {
-                            Chatting.Parser.TellAdmin(Permissions.Server, "High Memory Usage, not until, " + next.ToShortTimeString());
-                            Chatting.Parser.TellAdmin(Permissions.Server, "use /vanillastop to restart now");
+                            Chatting.Parser.TellAdmin("High Memory Usage, not until, " + next.ToShortTimeString());
+                            Chatting.Parser.TellAdmin("use /vanillastop to restart now");
                         }
                     }
                    

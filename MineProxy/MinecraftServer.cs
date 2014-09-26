@@ -29,7 +29,7 @@ namespace MineProxy
 
         public static string TexturePack { get; set; }
 
-        public static Dictionary<string,Permissions> Admins = new Dictionary<string, Permissions>();
+        public static List<string> Admins = new List<string>();
 
         static MinecraftServer()
         {

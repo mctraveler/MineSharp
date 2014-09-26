@@ -62,7 +62,7 @@ namespace MineProxy.Commands
             if (command == "" || command == null)
                 return false;
 
-            if (player.Admin(Permissions.AnyAdmin))
+            if (player.Admin())
             {
                 string apath = Path.Combine(Path.Combine(path, "admin"), Path.GetFileName(command));
                 if (Chat.ReadFile(apath, Chat.Pink, player))

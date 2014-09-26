@@ -28,7 +28,7 @@ namespace MineProxy.Worlds
         
         static void Spawner(Client player, string[] cmd, int iarg)
         {
-            if (!player.Admin(Permissions.AnyAdmin))
+            if (!player.Admin())
                 throw new ErrorException("Spawn does no longer work");
 
             VanillaSession rs = player.Session as VanillaSession;

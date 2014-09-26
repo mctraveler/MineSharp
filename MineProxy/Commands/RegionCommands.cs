@@ -51,7 +51,7 @@ namespace MineProxy.Commands
 
                     
                 player.TellSystem(Chat.Aqua, "Region: " + region.ColorName);
-                if (player.Admin(Permissions.Region))
+                if (player.Admin())
                 {
                     player.TellSystem(Chat.Gray, region.Type + ": " + region);
                 }   
@@ -295,7 +295,7 @@ namespace MineProxy.Commands
 
         void SetRegionStart(Client player, string[] cmd, int iarg)
         {
-            if (Donors.IsDonor(player) == false && player.Uptime.TotalDays < 2 && (player.Admin(Permissions.Region) == false))
+            if (Donors.IsDonor(player) == false && player.Uptime.TotalDays < 2 && (player.Admin() == false))
             {
                 player.TellSystem(Chat.Red, "You must have been playing here at least 48 hours before you can create custom regions");
                 player.TellSystem(Chat.Gray, "Use " + Chat.Yellow + "/ticket region" + Chat.Gray + " to create your first region");
@@ -316,7 +316,7 @@ namespace MineProxy.Commands
                 throw new UsageException("You must type /region start");
             if (ymin > ymax)
                 throw new ErrorException(ymin + " must be less than " + ymax);
-            if (ymin < 50 && (!player.Admin(Permissions.Region)) && (!player.Donor))
+            if (ymin < 50 && (!player.Admin()) && (!player.Donor))
                 throw new ErrorException("Only admins and donors may make regions below Y=50");
             if (player.Session.Position.Y + 1 < ymin)
                 throw new ErrorException("You are below the region you tried to create, move up and run the command again");
@@ -397,7 +397,7 @@ namespace MineProxy.Commands
                 //Need to make a wrapping region
 
                 //Only admins may create wrapping regions
-                if (player != null && player.Admin(Permissions.Region) == false)
+                if (player != null && player.Admin() == false)
                     throw new ErrorException("New region must be fully inside " + existing);
 
                 //New region covering several old ones?
@@ -443,7 +443,7 @@ namespace MineProxy.Commands
 
         void Delete(Client player, string[] cmd, int iarg)
         {
-            if (player.Admin(Permissions.Region) == false)
+            if (player.Admin() == false)
                 throw new ErrorException("Disabled");
             WorldRegion region = player.Session.CurrentRegion;
             if (region == null)

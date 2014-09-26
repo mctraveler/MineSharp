@@ -190,8 +190,8 @@ namespace MineProxy
                     return; //no visual speed warning
                 
                 player.Player.TellAbove(Chat.Aqua, "SLOW DOWN, speed mods are banned!");
-                Chatting.Parser.TellAdmin(Permissions.Ban, Chat.Aqua + player.Player.MinecraftUsername + " " + a + " s");
-                Chatting.Parser.TellAdmin(Permissions.Ban, Chat.Aqua + HistorySpeed [0].ToString("0.00") + " / " + HistoryMax [0].ToString("0.00"));
+                Chatting.Parser.TellAdmin(Chat.Aqua + player.Player.MinecraftUsername + " " + a + " s");
+                Chatting.Parser.TellAdmin(Chat.Aqua + HistorySpeed [0].ToString("0.00") + " / " + HistoryMax [0].ToString("0.00"));
                 
                 if (a >= HistorySpeed.Length)
                 {

@@ -114,7 +114,7 @@ namespace MineProxy
             {
                 using (TextReader r = new StreamReader(AdminsPath, System.Text.Encoding.UTF8))
                 {
-                    Dictionary<string,Permissions> admins = new Dictionary<string, Permissions>();
+                    var admins = new List<string>();
                     while (true)
                     {
                         string line = r.ReadLine();
@@ -128,16 +128,7 @@ namespace MineProxy
                         if (line == "")
                             continue;
                         var p = line.Trim().Split('\t');
-                        int pi = 0;
-                        try
-                        {
-                            pi = Convert.ToInt32(p [1], 2);
-                        } catch (Exception e)
-                        {
-                            Log.WriteServer("Parsing, admin file");
-                            Log.WriteServer(e);
-                        }
-                        admins.Add(p [0], (Permissions)pi);
+                        admins.Add(p [0]);
                     }
                     MinecraftServer.Admins = admins;
                 }

@@ -41,7 +41,7 @@ namespace MineProxy.Commands
             if (cmd.Length > 1)
             {
                 Client p;
-                if (player.Admin(Permissions.AnyAdmin))
+                if (player.Admin())
                     p = PlayerList.GetPlayerByUsernameOrName(cmd [cmd.Length - 1]);
                 else
                     p = PlayerList.GetPlayerByName(cmd [cmd.Length - 1]);

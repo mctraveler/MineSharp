@@ -55,7 +55,7 @@ namespace MineProxy.Chatting
 
         static void Translate(Client p, string[] cmd, int offset)
         {
-            if (!p.Donor && !p.Admin(Permissions.AnyAdmin))
+            if (!p.Donor && !p.Admin())
                 throw new ErrorException("Only for donors, /donate");
 
             if (cmd.Length == offset)

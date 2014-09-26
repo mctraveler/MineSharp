@@ -137,7 +137,6 @@
     <Compile Include="Data\ScreenPosition.cs" />
     <Compile Include="Network\CryptoMC.cs" />
     <Compile Include="Regions\ScoreboardRegionManager.cs" />
-    <Compile Include="Permissions.cs" />
     <Compile Include="Misc\Scoreboard.cs" />
     <Compile Include="Misc\PlayerInteraction.cs" />
     <Compile Include="Misc\Rules.cs" />

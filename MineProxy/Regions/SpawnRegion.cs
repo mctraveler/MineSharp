@@ -164,7 +164,7 @@ namespace MineProxy
 
         public static bool FilterServer(WorldSession player, Packet packet)
         {
-            if (player.Mode == GameMode.Creative && player.Player.Admin(Permissions.AnyAdmin))
+            if (player.Mode == GameMode.Creative && player.Player.Admin())
                 return false;
 			
             byte pid = packet.PacketID;

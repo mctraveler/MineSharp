@@ -21,7 +21,7 @@ namespace MineProxy
 
         static void CloakCommand(Client player, string[] cmd, int iarg)
         {
-            if (player.Admin(Permissions.Cloak) == false)
+            if (player.Admin() == false)
                 return;
 
             if (cmd.Length < 2)

@@ -128,7 +128,7 @@ namespace MineProxy.Commands
             if (cmd.Length != 2)
                 throw new ErrorException("Missing username");
                     
-            if (player.Admin(Permissions.Ban) || Donors.IsDonor(player))
+            if (player.Admin() || Donors.IsDonor(player))
             {
                 Banned.Pardon(player, cmd [1]);
                 return;
