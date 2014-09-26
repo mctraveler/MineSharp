@@ -21,14 +21,12 @@ namespace MineProxy
         const string DonorsFile = "donors.txt";
         const string RulesFile = "rules.txt";
         const string SpellFile = "spell.txt";
-        const string TicketFile = "ticket.txt";
 
         const string ConfigPath = SettingsPath + ConfigFile;
         const string AdminsPath = SettingsPath + AdminsFile;
         const string DonorsPath = SettingsPath + DonorsFile;
         const string RulesPath = SettingsPath + RulesFile;
         const string SpellPath = SettingsPath + SpellFile;
-        const string TicketPath = SettingsPath + TicketFile;
 
         public static void Start()
         {

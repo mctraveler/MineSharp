@@ -69,7 +69,7 @@ namespace MineProxy
                     return authResponse;
                 }
             }
-            catch (WebException we)
+            catch (WebException)
             {
                 return new AuthResponse();
             }
