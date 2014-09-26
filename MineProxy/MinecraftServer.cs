@@ -10,7 +10,7 @@ namespace MineProxy
 {
     public static class MinecraftServer
     {
-        public static string PublicIP = "91.123.200.164";
+        public static string PublicIP = "178.79.180.123";
 
         public static readonly IPAddress IP = IPAddress.Loopback;
 
