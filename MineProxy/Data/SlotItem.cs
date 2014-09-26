@@ -57,10 +57,10 @@ namespace MineProxy
             i.ItemID = (BlockID)r.ReadInt16();
             if (i.ItemID < 0)
                 return null;
-#if DEBUG
+            #if DEBUGPACKET
             if (((int)i.ItemID).ToString() == i.ItemID.ToString())
                 throw new NotImplementedException("BlockID: " + (int)i.ItemID);
-#endif
+            #endif
 
             i.Count = r.ReadByte();
             i.Uses = r.ReadInt16();

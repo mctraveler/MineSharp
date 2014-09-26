@@ -50,14 +50,14 @@ namespace MineProxy.Packets
             NumberOfSlots = r.ReadByte();
             if (InventoryType == "EntityHorse")
                 Unknown = r.ReadInt32();
-#if DEBUG
+            #if DEBUGPACKET
             Console.WriteLine("Horse Window Unknown: " + Unknown);
             if (InventoryTypes.Contains(InventoryType) == false)
             {
                 Console.WriteLine("Unknown InventoryType: " + InventoryType);
                 throw new NotImplementedException(InventoryType);
             }
-#endif
+            #endif
         }
 
         protected override void Prepare(EndianBinaryWriter w)

@@ -32,12 +32,12 @@ namespace MineProxy.Packets
             Dimension = (Dimensions)r.ReadInt32();
             Difficulty = r.ReadByte();
             Mode = (GameMode)r.ReadByte();
-#if DEBUG
+            #if DEBUGPACKET
             if (Dimension.ToString() == ((int)Dimension).ToString())
                 throw new NotImplementedException(Dimension.ToString());
             if (Mode.ToString() == ((int)Mode).ToString())
                 throw new NotImplementedException(Mode.ToString());
-#endif
+            #endif
             LevelType = ReadString8(r);
         }
 

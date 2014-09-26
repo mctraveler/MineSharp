@@ -35,10 +35,10 @@ namespace MineProxy.Packets
             EID = ReadVarInt(r);
             Animate = (Animations)r.ReadByte();
 
-#if DEBUG
-            //if (Animate.ToString() == ((int)Animate).ToString())
-            //throw new NotImplementedException(Animate.ToString());
-#endif
+            #if DEBUGPACKET
+            if (Animate.ToString() == ((int)Animate).ToString())
+                throw new NotImplementedException(Animate.ToString());
+            #endif
 
         }
 

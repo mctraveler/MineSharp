@@ -39,7 +39,7 @@ namespace MineProxy.Packets
             EID = ReadVarInt(r);
             Action = (Actions)r.ReadByte();
             JumpBoost = ReadVarInt(r);
-            #if DEBUG
+            #if DEBUGPACKET
             if (Action.ToString() == ((int)Action).ToString())
                 throw new NotImplementedException(Action.ToString());
             #endif

@@ -82,10 +82,10 @@ namespace MineProxy.Packets
             PitchDirection = r.ReadByte();
             BlockType = (BlockID)ReadVarInt(r);
 
-#if DEBUG
+            #if DEBUGPACKET
             if (BlockType.ToString() == ((int)BlockType).ToString())
                 throw new NotImplementedException(BlockType.ToString());
-#endif
+            #endif
         }
 
         protected override void Prepare(EndianBinaryWriter w)

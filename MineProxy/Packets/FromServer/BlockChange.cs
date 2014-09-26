@@ -60,10 +60,10 @@ namespace MineProxy.Packets
             Position = CoordInt.Read(r);
             BlockType = (BlockID)ReadVarInt(r);
             Metadata = r.ReadByte();
-#if DEBUG
+            #if DEBUGPACKET
             if (BlockType.ToString() == ((int)BlockType).ToString())
                 throw new NotImplementedException(BlockType.ToString());
-#endif
+            #endif
         }
 		
         protected override void Prepare(EndianBinaryWriter w)

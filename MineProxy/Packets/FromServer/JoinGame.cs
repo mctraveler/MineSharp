@@ -65,12 +65,12 @@ namespace MineProxy.Packets
             MaxPlayers = r.ReadByte();
             LevelType = ReadString8(r);
             ReducedDebug = r.ReadBoolean();
-#if DEBUG
+            #if DEBUGPACKET
             if (Dimension.ToString() == ((int)Dimension).ToString())
                 throw new NotImplementedException(Dimension.ToString());
             if (GameMode.ToString() == ((int)GameMode).ToString())
                 throw new NotImplementedException(GameMode.ToString());
-#endif
+            #endif
         }
 
         protected override void Prepare(EndianBinaryWriter w)

@@ -51,10 +51,10 @@ namespace MineProxy.Packets
             Amplifier = r.ReadSByte();
             Duration = ReadVarInt(r);
             HideParticles = r.ReadBoolean();
-#if DEBUG
+            #if DEBUGPACKET
             if (Effect.ToString() == ((int)Effect).ToString())
                 throw new NotImplementedException(Effect.ToString());
-#endif
+            #endif
         }
 		
         protected override void Prepare(EndianBinaryWriter w)

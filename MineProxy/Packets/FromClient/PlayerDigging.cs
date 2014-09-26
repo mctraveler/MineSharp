@@ -43,12 +43,12 @@ namespace MineProxy.Packets
             Position = CoordInt.Read(r);
             Face = (Face)r.ReadByte();
 
-#if DEBUG
+            #if DEBUGPACKET
             if (Status.ToString() == ((int)Status).ToString())
                 throw new NotImplementedException(Status.ToString());
             if (Face.ToString() == ((int)Face).ToString())
                 throw new NotImplementedException(Face.ToString());
-#endif
+            #endif
         }
 
         protected override void Prepare(EndianBinaryWriter w)
