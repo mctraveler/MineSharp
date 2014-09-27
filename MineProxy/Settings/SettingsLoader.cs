@@ -10,7 +10,7 @@ using MineProxy.Commands;
 
 namespace MineProxy
 {
-    public static class Settings
+    public static class SettingsLoader
     {
         static FileSystemWatcher watcher;
 

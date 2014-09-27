@@ -140,7 +140,6 @@
     <Compile Include="Misc\Scoreboard.cs" />
     <Compile Include="Misc\PlayerInteraction.cs" />
     <Compile Include="Misc\Rules.cs" />
-    <Compile Include="Settings\Settings.cs" />
     <Compile Include="Misc\Inbox.cs" />
     <Compile Include="Misc\Lag.cs" />
     <Compile Include="Packets\FromServer\AttachEntity.cs" />
@@ -335,6 +334,7 @@
       <Link>Settings.cs</Link>
     </Compile>
     <Compile Include="Network\AuthResponse.cs" />
+    <Compile Include="Settings\SettingsLoader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

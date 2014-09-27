@@ -54,7 +54,7 @@ namespace MineProxy
             {
                 PlayerList.StartUpdater();
                 //SpawnRegion.Start ();
-                Settings.Start();
+                SettingsLoader.Start();
                 QueryListener.Start();
             } catch (Exception e)
             {
