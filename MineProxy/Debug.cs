@@ -59,6 +59,9 @@ namespace MineProxy
         #pragma warning disable 162
         static bool Show(Packet packet)
         {
+            #if !DEBUGPACKET
+            return false;
+            #else
             byte id = packet.PacketID;
             if (id == PassThrough.ID)
                 id = packet.PacketBuffer[0];
@@ -79,6 +82,7 @@ namespace MineProxy
                 case PlayerListItem.ID:
                     return true;
             }
+            #endif
         }
         #pragma warning restore 162
         #endif
