@@ -139,10 +139,10 @@ namespace MineProxy
                                 if (ImportMeta(kvp.Key, kvp.Value.Float))
                                     continue;
                                 break;
-#if DEBUG
+                            #if DEBUGPACKET
                             default:
                                 throw new NotImplementedException("Unhandled metadata type " + kvp.Value);
-#endif
+                            #endif
                         }
                         break;
                 }

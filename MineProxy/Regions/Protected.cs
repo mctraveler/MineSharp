@@ -18,7 +18,7 @@ namespace MineProxy
             if (r == null)
                 return false;
 
-            if (session.Mode == GameMode.Creative && session.Player.Admin(Permissions.AnyAdmin))
+            if (session.Mode == GameMode.Creative && session.Player.Admin())
                 return false;
             if (r.IsResident(session.Player))
                 return false;
@@ -81,7 +81,7 @@ namespace MineProxy
                 if (bp.Item != null)
                     i += "(client)" + bp.Item.ItemID;
 
-                Chatting.Parser.TellAdmin(Permissions.Ban, session.Player.Name + " tried to use " + i + " in " + region.Name + " at " + session.Position);
+                Chatting.Parser.TellAdmin(session.Player.Name + " tried to use " + i + " in " + region.Name + " at " + session.Position);
                 //session.Player.Kick("Arson");
                 return true;
             }
@@ -122,7 +122,7 @@ namespace MineProxy
             if (wc.WindowID == 0) //player inventory, allow
                 return false;
 
-            if (rs.Player.Admin(Permissions.AnyAdmin) && rs.Mode == GameMode.Creative)
+            if (rs.Player.Admin() && rs.Mode == GameMode.Creative)
                 return false;
 
             if (rs.OpenWindows.ContainsKey(wc.WindowID) == false)
@@ -164,7 +164,7 @@ namespace MineProxy
             {
                 if (wc.Slot == 11 || wc.Slot == 13 || wc.Slot == 15)
                 {
-                    if (rs.Player.Admin(Permissions.AnyAdmin))
+                    if (rs.Player.Admin())
                     {
                         rs.TellSystem(Chat.White, "This spot is protected");
                         return false;

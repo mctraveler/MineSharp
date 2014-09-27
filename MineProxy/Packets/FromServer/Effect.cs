@@ -48,10 +48,10 @@ namespace MineProxy.Packets
             SoundData = r.ReadInt32();
             SoundByte = r.ReadByte();
             //Debug.WriteLine(DebugPacket.Read(r));
-#if DEBUG
+            #if DEBUGPACKET
             if (EffectID.ToString() == ((int)EffectID).ToString())
                 throw new NotImplementedException(EffectID.ToString());
-#endif
+            #endif
         }
 
         protected override void Prepare(EndianBinaryWriter w)

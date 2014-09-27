@@ -24,11 +24,11 @@ namespace MineProxy.Commands
             if (msg == "")
                 throw new ShowHelpException();
                     
-            Chatting.Parser.TellAdmin(Permissions.AnyAdmin, player.Name + ": " + msg);
+            Chatting.Parser.TellAdmin(player.Name + ": " + msg);
             bool admin = false;
             foreach (Client a in PlayerList.List)
             {
-                if (a.Admin(Permissions.AnyAdmin) && a.Settings.Cloaked == null)
+                if (a.Admin() && a.Settings.Cloaked == null)
                 {
                     admin = true;
                     break;

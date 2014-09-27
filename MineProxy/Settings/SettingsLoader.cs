@@ -10,7 +10,7 @@ using MineProxy.Commands;
 
 namespace MineProxy
 {
-    public static class Settings
+    public static class SettingsLoader
     {
         static FileSystemWatcher watcher;
 
@@ -21,14 +21,12 @@ namespace MineProxy
         const string DonorsFile = "donors.txt";
         const string RulesFile = "rules.txt";
         const string SpellFile = "spell.txt";
-        const string TicketFile = "ticket.txt";
 
         const string ConfigPath = SettingsPath + ConfigFile;
         const string AdminsPath = SettingsPath + AdminsFile;
         const string DonorsPath = SettingsPath + DonorsFile;
         const string RulesPath = SettingsPath + RulesFile;
         const string SpellPath = SettingsPath + SpellFile;
-        const string TicketPath = SettingsPath + TicketFile;
 
         public static void Start()
         {
@@ -116,7 +114,7 @@ namespace MineProxy
             {
                 using (TextReader r = new StreamReader(AdminsPath, System.Text.Encoding.UTF8))
                 {
-                    Dictionary<string,Permissions> admins = new Dictionary<string, Permissions>();
+                    var admins = new List<string>();
                     while (true)
                     {
                         string line = r.ReadLine();
@@ -130,16 +128,7 @@ namespace MineProxy
                         if (line == "")
                             continue;
                         var p = line.Trim().Split('\t');
-                        int pi = 0;
-                        try
-                        {
-                            pi = Convert.ToInt32(p [1], 2);
-                        } catch (Exception e)
-                        {
-                            Log.WriteServer("Parsing, admin file");
-                            Log.WriteServer(e);
-                        }
-                        admins.Add(p [0], (Permissions)pi);
+                        admins.Add(p [0]);
                     }
                     MinecraftServer.Admins = admins;
                 }

@@ -421,7 +421,7 @@ namespace MineProxy
             {
                 //this.Ban (null, DateTime.Now.AddMinutes (42), "Modified client");
                 if (Banned.CheckBanned(MinecraftUsername) == null)
-                    Chatting.Parser.TellAdmin(Permissions.Ban, Name + Chat.Gray + " crazy head angle " + pitch.ToString("0.0"));
+                    Chatting.Parser.TellAdmin(Name + Chat.Gray + " crazy head angle " + pitch.ToString("0.0"));
                 SendToClient(new EntityStatus(EntityID, MineProxy.Data.EntityStatuses.EntityHurt));
             }
             

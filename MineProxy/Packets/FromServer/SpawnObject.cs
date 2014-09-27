@@ -44,10 +44,10 @@ namespace MineProxy.Packets
         {
             EID = ReadVarInt(r);
             Type = (Vehicles)r.ReadByte();
-#if DEBUG
+            #if DEBUGPACKET
             if (Type.ToString() == ((int)Type).ToString())
                 throw new NotImplementedException(Type.ToString());
-#endif
+            #endif
             if (Type == Vehicles.Unknown)
                 Console.WriteLine();
             Position = ReadAbsInt(r);

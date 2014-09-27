@@ -41,11 +41,10 @@ namespace MineProxy.Packets
         {
             Reason = (GameState)r.ReadByte();
             Value = r.ReadSingle();
-#if DEBUG
+            #if DEBUGPACKET
             if (Reason.ToString() == ((int)Reason).ToString())
                 throw new NotImplementedException(Reason.ToString());
-#endif
-
+            #endif
         }
 		
         protected override void Prepare(EndianBinaryWriter w)

@@ -67,10 +67,10 @@ namespace MineProxy.Packets
             UY = r.ReadInt16();
             UZ = r.ReadInt16();
             Metadata = Metadata.Read(r);
-#if DEBUG
+            #if DEBUGPACKET
             if (Type.ToString() == ((int)Type).ToString())
                 throw new NotImplementedException(Type.ToString());
-#endif
+            #endif
         }
         
         protected override void Prepare(EndianBinaryWriter w)

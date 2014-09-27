@@ -51,7 +51,7 @@ namespace MineProxy.Packets
                 throw new InvalidOperationException("parsed PacketID mismatch, got " + parsedType + " expected " + PacketID);
             var pr = new EndianBinaryReader(EndianBitConverter.Big, packetStream);
             Parse(pr);
-            #if DEBUG
+            #if DEBUGPACKET
             if (pr.BaseStream.Position != PacketBuffer.Length)
             {
                 switch (PacketID)

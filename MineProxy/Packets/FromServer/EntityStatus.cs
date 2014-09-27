@@ -33,10 +33,10 @@ namespace MineProxy.Packets
         {
             EID = r.ReadInt32();
             Status = (EntityStatuses)r.ReadByte();
-#if DEBUG
+            #if DEBUGPACKET
             if (Status.ToString() == ((int)Status).ToString())
                 throw new NotImplementedException(Status.ToString());
-#endif
+            #endif
         }
 
         protected override void Prepare(EndianBinaryWriter w)

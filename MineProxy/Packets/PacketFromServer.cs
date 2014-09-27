@@ -193,7 +193,7 @@ namespace MineProxy.Packets
                     return new PassThroughServer();
 
                 default:
-                    #if DEBUG
+                    #if DEBUGPACKET
                     throw new NotImplementedException("Not Implemented packet: 0x" + type.ToString("X"));
                     #else
                     return new PassThroughServer();

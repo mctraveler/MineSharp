@@ -81,7 +81,7 @@ namespace MineProxy
             {
                 int rem = CleanBanned(regions.List);
                 Save(regions);
-                Chatting.Parser.TellAdmin(Permissions.Ban, "Removed banned residents: " + rem);
+                Chatting.Parser.TellAdmin("Removed banned residents: " + rem);
             }
         }
 

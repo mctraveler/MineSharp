@@ -80,7 +80,7 @@ namespace MineProxy
         /// </summary>
         public bool ResidentPermissions(Client player)
         {
-            if (player.Admin(Permissions.Region))
+            if (player.Admin())
                 return true;
 
             return IsResident(player.MinecraftUsername);
@@ -382,7 +382,7 @@ namespace MineProxy
             if (IsResident(player) == false)
             {
                 player.TellSystem(Chat.Yellow, " You are not a resident of this region");
-                if (player.Admin(Permissions.Region) == false)
+                if (player.Admin() == false)
                     return;
             }
             
@@ -450,7 +450,7 @@ namespace MineProxy
                 return;
             }
 
-            if (player.Admin(Permissions.Region) == false)
+            if (player.Admin() == false)
             {
                 if ((Donors.IsDonor(player) == false))
                 {
@@ -563,7 +563,7 @@ namespace MineProxy
                 case SpawnRegion.Type:
                     break; //OK
                 default:
-                    if (player.Admin(Permissions.Region) == false)
+                    if (player.Admin() == false)
                     {
                         player.TellSystem(Chat.Red, "Unknown type: " + type);
                         player.TellSystem(Chat.Yellow, "Choose one of: public, protected, adventure, night");

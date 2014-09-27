@@ -108,14 +108,12 @@ namespace MineProxy.Chatting
                 p.TellSystem(prefix, message);
         }
 
-        public static void TellAdmin(Permissions who, string message)
+        public static void TellAdmin(string message)
         {
-            foreach (var kvp in MinecraftServer.Admins)
+            foreach (var username in MinecraftServer.Admins)
             {
-                Client p = PlayerList.GetPlayerByUsername(kvp.Key);
+                Client p = PlayerList.GetPlayerByUsername(username);
                 if (p == null)
-                    continue;
-                if (p.AdminAny(who) == false)
                     continue;
                 p.TellSystem(Chat.Purple + "Admin: " + Chat.White, message);
             }

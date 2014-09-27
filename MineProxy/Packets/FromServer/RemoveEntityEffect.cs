@@ -27,10 +27,10 @@ namespace MineProxy.Packets
         {
             EID = ReadVarInt(r);
             Effect = (PlayerEffects)r.ReadSByte();
-#if DEBUG
+            #if DEBUGPACKET
             if (Effect.ToString() == ((int)Effect).ToString())
                 throw new NotImplementedException(Effect.ToString());
-#endif
+            #endif
         }
 		
         protected override void Prepare(EndianBinaryWriter w)

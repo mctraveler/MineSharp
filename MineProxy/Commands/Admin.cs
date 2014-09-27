@@ -111,9 +111,6 @@ namespace MineProxy.Commands
 
         void VanillaSuspend(Client player, string[] cmd, int iarg)
         {
-            if (player.Admin(Permissions.Server) == false)
-                throw new ErrorException("Disabled");
-
             VanillaWorld w = player.Session.World as VanillaWorld;
             if (iarg < cmd.Length)
                 w = World.VanillaWorlds [cmd [iarg]];
@@ -129,9 +126,6 @@ namespace MineProxy.Commands
 
         void VanillaResume(Client player, string[] cmd, int iarg)
         {
-            if (player.Admin(Permissions.Server) == false)
-                throw new ErrorException("Disabled");
-
             VanillaWorld w = player.Session.World as VanillaWorld;
             if (iarg < cmd.Length)
                 w = World.VanillaWorlds [cmd [iarg]];
@@ -146,8 +140,6 @@ namespace MineProxy.Commands
 
         void Possess(Client player, string[] cmd, int iarg)
         {
-            if (player.Admin(Permissions.Cloak) == false)
-                throw new ErrorException("Disabled");
             if (cmd.Length != 2)
                 throw new UsageException("Usage: /possess username");
 
@@ -178,9 +170,6 @@ namespace MineProxy.Commands
 
         void Mode(Client player, string[] cmd, int iarg)
         {
-            if (!player.AdminAny(Permissions.CreativeBuild | Permissions.CreativeFly))
-                throw new ErrorException("Disabled");
-            
             if (cmd.Length == 2)
             {
                 player.Session.World.Send("gamemode " + cmd [1] + " " + player.MinecraftUsername);
@@ -191,9 +180,6 @@ namespace MineProxy.Commands
 
         void Teleport(Client player, string[] cmd, int iarg)
         {
-            if (!player.AdminAny(Permissions.CreativeBuild | Permissions.CreativeFly))
-                throw new ErrorException("Disabled");
-            
             if (cmd.Length < 2)
                 throw new ShowHelpException();
             
@@ -252,9 +238,6 @@ namespace MineProxy.Commands
 
         void Crash(Client player, string[] cmd, int iarg)
         {
-            if (!player.AdminAny(Permissions.Ban))
-                throw new ErrorException("Disabled");
-            
             if (cmd.Length != iarg + 2)
                 throw new ShowHelpException();
 
@@ -296,9 +279,6 @@ namespace MineProxy.Commands
 
         void KillJava(Client player, string[] cmd, int iarg)
         {
-            if (!player.AdminAny(Permissions.Server))
-                throw new ErrorException("Disabled");
-            
             player.TellSystem(Chat.Purple, "kill -9, take that java");
             System.Diagnostics.Process.Start("pkill", "-kill java");
         }
@@ -359,8 +339,6 @@ namespace MineProxy.Commands
 
         void Kick(Client player, string[] cmd, int iarg)
         {
-            if (!player.AdminAny(Permissions.Ban))
-                throw new ErrorException("Disabled");
             if (cmd.Length < 3)
                 throw new UsageException("Missing argument, use: /kick username reason for being kicked  ");
             
@@ -397,8 +375,6 @@ namespace MineProxy.Commands
 
         void BanIP(Client player, string[] cmd, int iarg)
         {
-            if (!player.AdminAny(Permissions.Ban))
-                throw new ErrorException("Disabled");
             if (cmd.Length != 2)
                 throw new ShowHelpException();
 
@@ -414,15 +390,11 @@ namespace MineProxy.Commands
 
         void CleanBannedRegions(Client player, string[] cmd, int iarg)
         {
-            if (player.Admin(Permissions.Region) == false)
-                throw new ErrorException("Disabled");
             RegionLoader.CleanBanned(player.Session.World.Regions);
         }
 
         void VanillaCommands(Client player, string[] cmd, int iarg)
         {
-            if (player.AdminAny(Permissions.CreativeBuild | Permissions.Ban) == false)
-                throw new ErrorException("Disabled");
             player.TellSystem(Chat.Purple, "Sending command to vanilla backend");
             player.TellSystem(Chat.Purple, cmd.JoinFrom(0));
             player.Session.World.Send(cmd.JoinFrom(0));
@@ -430,8 +402,6 @@ namespace MineProxy.Commands
 
         void VanillaStop(Client player, string[] cmd, int iarg)
         {
-            if (player.Admin(Permissions.Server) == false)
-                throw new ErrorException("Disabled");
             player.TellSystem(Chat.Purple, "Sending stop command to vanilla backend");
             player.Session.World.Send("stop");
             BackupProxy.LastVanillaRestart = DateTime.Now;
@@ -439,9 +409,6 @@ namespace MineProxy.Commands
 
         void VanillaLoad(Client player, string[] cmd, int iarg)
         {
-            if (player.Admin(Permissions.Server) == false)
-                throw new ErrorException("Disabled");
-
             string name = cmd [iarg];
 
             if (World.VanillaWorlds.ContainsKey(name))
@@ -460,9 +427,6 @@ namespace MineProxy.Commands
 
         void VanillaUnload(Client player, string[] cmd, int iarg)
         {
-            if (player.Admin(Permissions.Server) == false)
-                throw new ErrorException("Disabled");
-
             string name = cmd [iarg];
 
             if (World.VanillaWorlds.ContainsKey(name) == false)
@@ -484,15 +448,11 @@ namespace MineProxy.Commands
 
         void OldRestart(Client player, string[] cmd, int iarg)
         {
-            if (player.Admin(Permissions.Server) == false)
-                throw new ErrorException("Disabled");
             player.TellSystem(Chat.Yellow, "Changed these commands to /vanillastop, /proxystop");
         }
 
         void ProxyStop(Client player, string[] cmd, int iarg)
         {
-            if (player.Admin(Permissions.Server) == false)
-                throw new ErrorException("Disabled");
             string bye = cmd.JoinFrom(1);
             Chatting.Parser.Say(Chat.Pink, "[Restarting] " + bye);
             MainClass.Shutdown(bye);

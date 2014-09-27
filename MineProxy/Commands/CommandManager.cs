@@ -83,7 +83,7 @@ namespace MineProxy
         /// <param name="c">command without the leading /</param>
         public void CompleteCommand(Client player, string c, TabComplete tab)
         {
-            if (player.Admin(Permissions.AnyAdmin))
+            if (player.Admin())
                 Complete(AdminStrings, c, tab);
             Complete(CommandStrings, c, tab);
         }
@@ -112,7 +112,7 @@ namespace MineProxy
         public virtual bool ParseCommand(Client player, string[] cmd, int iarg)
         {
             string command = cmd [iarg - 1];
-            if (player.Admin(Permissions.AnyAdmin))
+            if (player.Admin())
             {
                 if (AdminCommandParse.ContainsKey(command))
                 {

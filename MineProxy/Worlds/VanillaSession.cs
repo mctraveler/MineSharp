@@ -218,6 +218,10 @@ namespace MineProxy.Worlds
             //Store UUID permanently - No need to store from backend since that is offline uuid
 
             phase = Phases.Gaming;
+
+            //Send server JoinGame to the client
+            res.EntityID = Player.EntityID;
+            FromServerGaming(res);
         }
         #if DEBUG
         Packet prev1 = null;
@@ -482,7 +486,7 @@ namespace MineProxy.Worlds
                         break;
                 
                     case UpdateBlockEntity.ID:
-                        if (Player.Admin(Permissions.AnyAdmin))
+                        if (Player.Admin())
                         {
                             var ute = (UpdateBlockEntity)packet;
                             if (ute.Action == UpdateBlockEntity.Actions.MobSpawner)
@@ -568,7 +572,7 @@ namespace MineProxy.Worlds
                             OpenWindows.Remove(wo.WindowID);
                         OpenWindows.Add(wo.WindowID, new OpenWindowRegion(wo, r));
 
-                        if (r == null || (Player.Admin(Permissions.AnyAdmin) == false) && (Mode == GameMode.Creative))
+                        if (r == null || (Player.Admin() == false) && (Mode == GameMode.Creative))
                         {
                             //Leave unmodified
                         }
@@ -780,7 +784,7 @@ namespace MineProxy.Worlds
                     break;
 
                 case UseEntity.ID:
-                    if (Mode == GameMode.Creative && (Player.Admin(Permissions.AnyAdmin) == false))
+                    if (Mode == GameMode.Creative && (Player.Admin() == false))
                         return; //Donors can't hurt while in creative mode
 
                     if (UseEntityFromClient((UseEntity)packet))
@@ -801,7 +805,7 @@ namespace MineProxy.Worlds
                         
             //Prevent non admins from getting items in creative
                 case CreativeInventory.ID:
-                    if (Player.Admin(Permissions.CreativeBuild) == false)
+                    if (Player.Admin() == false)
                     {
                         Player.SendToClient(new EntityStatus(Player.EntityID, EntityStatuses.EntityHurt));
                         Player.TellSystem(Chat.Yellow, "Creative Inventory Disabled");
@@ -818,7 +822,7 @@ namespace MineProxy.Worlds
                     //AfkTime = DateTime.Now;
 
                     //Non admins can't place block
-                    if (Mode == GameMode.Creative && (Player.Admin(Permissions.CreativeBuild) == false))
+                    if (Mode == GameMode.Creative && (Player.Admin() == false))
                     {
                         Player.SendToClient(new EntityStatus(Player.EntityID, EntityStatuses.EntityHurt));
                         Player.TellSystem(Chat.Yellow, "Creative Build Disabled");
@@ -868,7 +872,7 @@ namespace MineProxy.Worlds
                         Charge = null;
 
                     //Prevent non admin creative from digging
-                    if (Mode == GameMode.Creative && Player.Admin(Permissions.AnyAdmin) == false)
+                    if (Mode == GameMode.Creative && Player.Admin() == false)
                         return;
                     if (FilterDirection(pd.Position))
                         return;
@@ -915,7 +919,7 @@ namespace MineProxy.Worlds
 
         bool FilterLava(PlayerBlockPlacement placement)
         {
-            if (Player.Admin(Permissions.AnyAdmin))
+            if (Player.Admin())
                 return false;
 
             //Log lava
@@ -932,7 +936,7 @@ namespace MineProxy.Worlds
             {
                 string msg = "High lava at " + placement.BlockPosition;
                 Log.WritePlayer(this, msg);
-                Chatting.Parser.TellAdmin(Permissions.Ban, Chat.Red + Player.MinecraftUsername + " " + msg);
+                Chatting.Parser.TellAdmin(Chat.Red + Player.MinecraftUsername + " " + msg);
                 return true;
             }
             
@@ -952,7 +956,7 @@ namespace MineProxy.Worlds
 
                     string msg = "put " + i.ItemID + " at " + placement.BlockPosition;
                     Log.WritePlayer(this, msg);
-                    Chatting.Parser.TellAdmin(Permissions.Ban, Chat.Red + Player.MinecraftUsername + " " + msg);
+                    Chatting.Parser.TellAdmin(Chat.Red + Player.MinecraftUsername + " " + msg);
                 }
             }
             return false;
@@ -972,7 +976,7 @@ namespace MineProxy.Worlds
             if (ue.Type == UseEntity.Types.Attack)
             {
                 //Admin instant kill using bedrock
-                if (Player.Admin(Permissions.AnyAdmin) &&
+                if (Player.Admin() &&
                     this.ActiveItem != null &&
                     this.ActiveItem.ItemID == BlockID.Bedrock)
                 {

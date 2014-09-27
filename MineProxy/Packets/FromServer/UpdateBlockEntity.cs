@@ -47,7 +47,7 @@ namespace MineProxy.Packets
             if (length >= 0)
                 Data = r.ReadBytesOrThrow(length);
 
-#if DEBUG
+            #if DEBUGPACKET
             if (Action == Actions.Unknown2)
                 Console.WriteLine(this);
             if (Action == Actions.Unknown3)
@@ -57,7 +57,7 @@ namespace MineProxy.Packets
 
             if (Action.ToString() == ((int)Action).ToString())
                 throw new NotImplementedException(Action.ToString());
-#endif
+            #endif
         }
         
         protected override void Prepare(EndianBinaryWriter w)
