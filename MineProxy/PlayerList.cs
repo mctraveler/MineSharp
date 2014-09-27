@@ -264,7 +264,7 @@ namespace MineProxy
                 var vs = p.Session as VanillaSession;
                 if (vs == null)
                     continue;
-                if (vs.UUID == id)
+                if (vs.OfflineUUID == id)
                     return p;
             }
             return null;

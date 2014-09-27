@@ -87,7 +87,7 @@ namespace MineProxy.Worlds
         /// <summary>
         /// Backend UUID, offline type
         /// </summary>
-        public Guid UUID { get; set; }
+        public Guid OfflineUUID { get; set; }
 
         //public short Health { get; set; }
 
@@ -203,7 +203,7 @@ namespace MineProxy.Worlds
             Debug.FromServer(compression, Player);
 
             var loginSuccess = new LoginSuccess(PacketReader.Read(serverStream));
-            UUID = loginSuccess.UUID;
+            OfflineUUID = loginSuccess.UUID;
             Debug.FromServer(loginSuccess, Player);
         
             //Read LoginRequest
