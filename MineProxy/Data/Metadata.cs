@@ -17,7 +17,7 @@ namespace MineProxy
         String = 4,
         Item = 5,
         Vector = 6,
-        Bytes12 = 7,
+        VectorF = 7,
     }
 	
     public class MetaField
@@ -36,11 +36,14 @@ namespace MineProxy
 
         public string String { get; set; }
 
-        public byte[] Data { get; set; }
-
         public SlotItem Item { get; set; }
 
         public CoordInt Vector { get; set; }
+
+        /// <summary>
+        /// Pitch, Yaw, Roll
+        /// </summary>
+        public CoordDouble VectorF { get; set; }
 
         public MetaField(int id, MetaType type)
         {
@@ -66,6 +69,8 @@ namespace MineProxy
                     return ID + " Item: " + Item;
                 case MetaType.Vector:
                     return ID + " Vector: " + Vector;
+                case MetaType.VectorF:
+                    return ID + " VectorF: " + VectorF;
                 default:
                     throw new NotImplementedException();
             }
@@ -168,8 +173,11 @@ namespace MineProxy
                         mf.Vector.Y = r.ReadInt32();
                         mf.Vector.Z = r.ReadInt32();
                         break;
-                    case MetaType.Bytes12:
-                        mf.Data = r.ReadBytesOrThrow(12);
+                    case MetaType.VectorF:
+                        mf.VectorF = new CoordDouble();
+                        mf.VectorF.X = r.ReadSingle();
+                        mf.VectorF.Y = r.ReadSingle();
+                        mf.VectorF.Z = r.ReadSingle();
                         break;
                     default:
                         throw new NotImplementedException();
@@ -214,8 +222,10 @@ namespace MineProxy
                         w.Write(mf.Vector.Y);
                         w.Write(mf.Vector.Z);
                         break;
-                    case MetaType.Bytes12:
-                        w.Write(mf.Data);
+                    case MetaType.VectorF:
+                        w.Write((float)mf.VectorF.X);
+                        w.Write((float)mf.VectorF.Y);
+                        w.Write((float)mf.VectorF.Z);
                         break;
                     default:
                         throw new NotImplementedException();
