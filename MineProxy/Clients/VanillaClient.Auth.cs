@@ -140,7 +140,7 @@ namespace MineProxy.Clients
             clientThread.State = "Handshake: Verifying login credentials";
             var auth = Authentication.VerifyUserLogin(unverifiedUsername, cryptoStream.SharedKey, ID);
             #warning From here we now need to take care of the id in the response.
-            if (auth == null)
+            if (auth==null)
             {
                 //Unauthorized
                 Log.WriteAuthFail(unverifiedUsername, RemoteEndPoint, "" + auth);
