@@ -65,14 +65,19 @@ namespace MineProxy
 
             switch (id)
             {
-                default:
+                case EntityHeadYaw.ID:
+                case EntityRelativeMove.ID:
+                case ChunkData.ID:
+                case ChunkDataBulk.ID:
+                case EntityVelocity.ID:
+                case PlayerGround.ID:
+                case EntityLookRelativeMove.ID:
                     return false;
+                default:
                 case LoginSuccess.ID:
                 case SpawnPlayer.ID:
                 case PlayerListItem.ID:
-                //case ChunkData.ID:
-                //case ChunkDataBulk.ID:
-                        return true;
+                    return true;
             }
         }
         #pragma warning restore 162

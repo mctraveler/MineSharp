@@ -33,6 +33,10 @@ namespace MineProxy.Network
             }
         }
 
+        /// <summary>
+        /// Retrieve the UUID given a username
+        /// This one is no longer used during auth since the new method get the UUID
+        /// </summary>
         public static Guid GetUUID(string username)
         {
             using (WebClient client = new WebClient())
