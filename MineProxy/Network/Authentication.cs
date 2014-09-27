@@ -45,7 +45,6 @@ namespace MineProxy
                 ms.Write(sid, 0, sid.Length);
                 ms.Write(sharedKey, 0, sharedKey.Length);
                 ms.Write(MinecraftServer.RsaBytes, 0, MinecraftServer.RsaBytes.Length);
-                ms.Write(Encoding.ASCII.GetBytes("Hell"), 0, 4);
                 byte[] bHash = sha.ComputeHash(ms.ToArray());
                 hash = McHex(bHash);
             }
