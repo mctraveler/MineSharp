@@ -141,8 +141,8 @@ namespace MineProxy.Clients
             if (auth == null)
             {
                 //Unauthorized
-                Log.WriteAuthFail(unverifiedUsername, RemoteEndPoint, "" + auth);
-                Close("Mojang says " + auth);
+                Log.WriteAuthFail(unverifiedUsername, RemoteEndPoint, "");
+                Close("Mojang says no");
                 return;
             }
             else
