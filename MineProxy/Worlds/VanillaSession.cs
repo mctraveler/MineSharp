@@ -218,6 +218,10 @@ namespace MineProxy.Worlds
             //Store UUID permanently - No need to store from backend since that is offline uuid
 
             phase = Phases.Gaming;
+
+            //Send server JoinGame to the client
+            res.EntityID = Player.EntityID;
+            FromServerGaming(res);
         }
         #if DEBUG
         Packet prev1 = null;

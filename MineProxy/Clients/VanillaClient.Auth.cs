@@ -184,14 +184,7 @@ namespace MineProxy.Clients
             freeEID += 5000;
 
             //Login reply to client
-            JoinGame lr = new JoinGame();
-            lr.ClientVersion = 0;
-            lr.Difficulty = 0;
-            lr.Dimension = 0;
-            lr.EntityID = EntityID;
-            lr.MaxPlayers = (byte)MinecraftServer.PlayerListSlots;
-            lr.GameMode = 0;
-            SendToClient(lr);
+            //No longer, send the vanilla server Login reply instead.
 
             Phase = Phases.Gaming;
             Queue = new SendQueue(this);
