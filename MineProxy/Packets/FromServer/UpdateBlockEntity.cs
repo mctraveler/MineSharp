@@ -28,11 +28,11 @@ namespace MineProxy.Packets
         
         public Actions Action { get; set; }
 
-        public byte[] Data { get; set; }
+        public NBT.Tag Data { get; set; }
 
         public override string ToString()
         {
-            return string.Format("[UpdateTileEntity: Pos={1}, Action={2}, Data={3}]", PacketID, Pos, Action, Data.Length);
+            return string.Format("[UpdateTileEntity: Pos={1}, Action={2}, Data={3}]", PacketID, Pos, Action, Data);
         }
 
         public UpdateBlockEntity()
@@ -43,9 +43,7 @@ namespace MineProxy.Packets
         {
             Pos = CoordInt.Read(r);
             Action = (Actions)r.ReadByte();
-            int length = r.ReadInt16(); //Changes: compressed length
-            if (length >= 0)
-                Data = r.ReadBytesOrThrow(length);
+            Data = NBT.Tag.ReadTag(r);
 
             #if DEBUGPACKET
             if (Action == Actions.Unknown2)
@@ -66,11 +64,10 @@ namespace MineProxy.Packets
             w.Write((byte)Action);
 
             if (Data == null)
-                w.Write((short)-1);
+                w.Write((byte)0);
             else
             {
-                w.Write((short)Data.Length);
-                w.Write(Data);
+                Data.Write(w);
             }
         }
         

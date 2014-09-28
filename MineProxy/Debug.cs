@@ -59,21 +59,30 @@ namespace MineProxy
         #pragma warning disable 162
         static bool Show(Packet packet)
         {
+            #if !DEBUGPACKET
+            return false;
+            #else
             byte id = packet.PacketID;
             if (id == PassThrough.ID)
                 id = packet.PacketBuffer[0];
 
             switch (id)
             {
-                default:
+                case EntityHeadYaw.ID:
+                case EntityRelativeMove.ID:
+                case ChunkData.ID:
+                case ChunkDataBulk.ID:
+                case EntityVelocity.ID:
+                case PlayerGround.ID:
+                case EntityLookRelativeMove.ID:
                     return false;
+                default:
                 case LoginSuccess.ID:
                 case SpawnPlayer.ID:
                 case PlayerListItem.ID:
-                //case ChunkData.ID:
-                //case ChunkDataBulk.ID:
-                        return true;
+                    return true;
             }
+            #endif
         }
         #pragma warning restore 162
         #endif

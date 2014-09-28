@@ -92,13 +92,10 @@ namespace MineProxy.Clients
             
             //Login
             var l = new LoginStart(PacketReader.ReadHandshake(clientStream));
+            Debug.FromClient(this, l);
 
             clientThread.State = "LoginStart Received " + l.Name;
             unverifiedUsername = l.Name;
-            #if DEBUGx
-            var names = new string[]{ "travelcraft2012", "nuxas", "drjanitor" };
-            unverifiedUsername = names[logincount++ % names.Length];
-            #endif
             if (unverifiedUsername.Length == 0 || unverifiedUsername.Length > 16)
             {
                 clientThread.State = "Handshake wrong username length";
@@ -127,6 +124,7 @@ namespace MineProxy.Clients
             if (erSize != 0)
                 erBuffer = Compression.Decompress(erBuffer, erSize);
             var er = new EncryptionResponse(erBuffer);
+            Debug.FromClient(this, er);
 
             clientThread.State = "Handshake: Got enc resp";
             CryptoMC cryptoStream = new CryptoMC(clientStream, er);
@@ -143,8 +141,8 @@ namespace MineProxy.Clients
             if (auth==null)
             {
                 //Unauthorized
-                Log.WriteAuthFail(unverifiedUsername, RemoteEndPoint, "" + auth);
-                Close("Mojang says " + auth);
+                Log.WriteAuthFail(unverifiedUsername, RemoteEndPoint, "");
+                Close("Mojang says no");
                 return;
             }
             else
@@ -155,16 +153,7 @@ namespace MineProxy.Clients
             clientThread.State = "Handshake: Logged in";
 
             //Get UUID
-            try
-            {
-                Settings.UUID = UsernameUUID.GetUUID(MinecraftUsername);
-                //Saved further down
-                Debug.WriteLine("Real UUID for " + MinecraftUsername + " is " + Settings.UUID);
-            }
-            catch (Exception)
-            {
-                Debug.WriteLine("Failed to get UUID for MinecraftName " + MinecraftUsername);
-            }
+            Settings.UUID = auth.id;
 
             clientThread.WatchdogTick = DateTime.Now;
 
