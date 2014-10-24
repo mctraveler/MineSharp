@@ -257,6 +257,24 @@ namespace MineProxy
             return null;
         }
 
+        public static Client GetPlayerBySpawn(SpawnPlayer sp)
+        {
+            Guid id = sp.PlayerUUID;
+            int eid = sp.EID;
+
+            foreach (Client p in List)
+            {
+                var vs = p.Session as VanillaSession;
+                if (vs == null)
+                    continue;
+                if (vs.OfflineUUID == id)
+                    return p;
+                if (vs.EID == eid)
+                    return p;
+            }
+            return null;
+        }
+
         public static Client GetPlayerByVanillaUUID(Guid id)
         {
             foreach (Client p in List)
