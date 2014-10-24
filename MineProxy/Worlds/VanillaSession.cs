@@ -205,7 +205,7 @@ namespace MineProxy.Worlds
             var loginSuccess = new LoginSuccess(PacketReader.Read(serverStream));
             OfflineUUID = loginSuccess.UUID;
             Debug.FromServer(loginSuccess, Player);
-        
+
             //Read LoginRequest
             JoinGame res = new JoinGame(PacketReader.Read(serverStream));
             Debug.FromServer(res, Player);

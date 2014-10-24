@@ -22,6 +22,7 @@ namespace MineProxy
             }
             set
             {
+                WatchdogTick = DateTime.Now;
                 stateTime = DateTime.Now;
                 state = value;
             }
@@ -139,7 +140,7 @@ namespace MineProxy
 #if DEBUG
         readonly TimeSpan watchdogTimeout = TimeSpan.FromSeconds(30);
 #else
-        readonly TimeSpan watchdogTimeout = TimeSpan.FromSeconds(60);
+        readonly TimeSpan watchdogTimeout = TimeSpan.FromSeconds(120);
 #endif
 
         public DateTime WatchdogTick
@@ -172,8 +173,9 @@ namespace MineProxy
             {
                 if (DateTime.Now - watchdogTimeout > watchdogTick)
                 {
-                    Console.WriteLine("WatchDog Triggered: " + this.thread.Name);
-                    Log.WriteServer("WatchDog Triggered: " + this.thread.Name);
+                    string errorMessage = "WatchDog Triggered, Thread: " + this.thread.Name + ", State: " + this.State + ", User: " + this.User + ", Last tick: " + WatchdogTick;
+                    Console.WriteLine(errorMessage);
+                    Log.WriteServer(errorMessage);
 #if !DEBUG
                     if (watchdogKill != null)
                     {
@@ -186,7 +188,7 @@ namespace MineProxy
                         }
                     }
                     thread.Interrupt();
-                    thread.Join(1000);
+                    thread.Join(5000);
                     thread.Abort();
 #endif
                 }

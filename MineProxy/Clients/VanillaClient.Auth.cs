@@ -73,6 +73,7 @@ namespace MineProxy.Clients
                 Close("Invalid handshake state: " + h.State);
                 return;
             }
+
             #if DEBUG
             if (h.Version >= ProtocolVersion.next)
                 throw new InvalidDataException("new version: " + h.Version);
@@ -89,7 +90,9 @@ namespace MineProxy.Clients
                 Close("Upgrade your client to " + MinecraftServer.FrontendVersion.ToText());
                 return;
             }
-            
+
+            clientThread.WatchdogTick = DateTime.Now;
+
             //Login
             var l = new LoginStart(PacketReader.ReadHandshake(clientStream));
             Debug.FromClient(this, l);
@@ -130,8 +133,6 @@ namespace MineProxy.Clients
             CryptoMC cryptoStream = new CryptoMC(clientStream, er);
 
             //Verify user
-            clientThread.WatchdogTick = DateTime.Now;
-
             clientThread.State = "Handshake: loading proxy data";
             Settings = LoadProxyPlayer(unverifiedUsername);
 
