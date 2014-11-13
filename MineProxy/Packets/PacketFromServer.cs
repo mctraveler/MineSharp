@@ -90,7 +90,7 @@ namespace MineProxy.Packets
                 case EntityVelocity.ID:
                     return new EntityVelocity();
                 case DestroyEntities.ID:
-                    return new PassThroughServer();//return new DestroyEntities();
+                    return new DestroyEntities();
                 case EntityRelativeMove.ID:
                     return new EntityRelativeMove();
                 case EntityLook.ID:
@@ -138,7 +138,7 @@ namespace MineProxy.Packets
                 case ChangeGameState.ID:
                     return new ChangeGameState();
                 case SpawnGlobalEntity.ID:
-                    return new PassThroughServer();//return new SpawnGlobalEntity();
+                    return new SpawnGlobalEntity();
                 case WindowOpen.ID:
                     return new WindowOpen();
                 case WindowCloseServer.ID:
@@ -189,8 +189,9 @@ namespace MineProxy.Packets
                 case PlayerListHeaderFooter.ID: //0x47
                     return new PlayerListHeaderFooter();
                 case ResourcePackSend.ID: //0x48
-                case UpdateEntityNBT.ID: //0x49
                     return new PassThroughServer();
+                case UpdateEntityNBT.ID: //0x49
+                    return new UpdateEntityNBT();
 
                 default:
                     #if DEBUGPACKET

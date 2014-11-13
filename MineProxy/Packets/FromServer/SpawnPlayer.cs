@@ -37,16 +37,19 @@ namespace MineProxy.Packets
             PlayerUUID = player.UUID;
             Position = new CoordDouble();
             Meta = new Metadata();
-            Meta.SetByte(17, 0);
+            Meta.SetFloat(17, 0);
             Meta.SetByte(0, 0);
             Meta.SetByte(16, 0);
             Meta.SetShort(1, 300);
+            Meta.SetString(2, "");
             Meta.SetInt(18, 0);
-            Meta.SetFloat(5, 20);
-            Meta.SetFloat(6, 20);
+            Meta.SetByte(3, 0);
+            Meta.SetByte(4, 0);
+            Meta.SetFloat(6, 10);
             Meta.SetInt(7, 0);
             Meta.SetByte(8, 0);
             Meta.SetByte(9, 0);
+            Meta.SetByte(10, 0);
         }
 
         public override string ToString()

@@ -220,8 +220,10 @@ namespace MineProxy.Worlds
             phase = Phases.Gaming;
 
             //Send server JoinGame to the client
-            res.EntityID = Player.EntityID;
+            Player.EntityID = res.EntityID;
             FromServerGaming(res);
+
+            Cloak.SetCloak(Player, null);
         }
         #if DEBUG
         Packet prev1 = null;
@@ -383,16 +385,23 @@ namespace MineProxy.Worlds
                     case SpawnPlayer.ID:
                         //Change reported uuid from offline to the known with names
                         var sp = (SpawnPlayer)packet;
-                        var p = PlayerList.GetPlayerByVanillaUUID(sp.PlayerUUID);
+                        var p = PlayerList.GetPlayerBySpawn(sp);
                         if (p != null)
                         {
                             Debug.WriteLine("SpawnPlayer changed from " + sp.PlayerUUID);
                             Debug.WriteLine("SpawnPlayer changed to   " + p.UUID);
                             sp.PlayerUUID = p.UUID;
                             sp.SetPacketBuffer(null);
+
+                            //Naive attempt
+                            sp = new SpawnPlayer(sp.EID, p);
+                            sp.Position = sp.Position;
+                            sp.Pitch = sp.Pitch;
+                            sp.Yaw = sp.Yaw;
                         }
                         else
                             Debug.WriteLine("SpawnPlayer not changed: " + sp.PlayerUUID);
+
                         break;
 
                     case ChangeGameState.ID:

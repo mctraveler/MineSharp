@@ -90,6 +90,16 @@ namespace MineProxy.Worlds
             }
         }
 
+        public void SendToAllBut(PacketFromServer packet, WorldSession player)
+        {
+            foreach (var p in Players)
+            {
+                if (p == player)
+                    continue;
+                p.Send(packet);
+            }
+        }
+
         public void SendToAll(List<PacketFromServer> packets)
         {
             if (packets.Count == 0)

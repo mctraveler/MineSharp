@@ -52,7 +52,7 @@ namespace MineProxy.Clients
             {
                 return;
             }
-            #if !DEBUG
+            #if !DEBUGx
             catch (Exception e) {
 				Log.Write (e, this);
 				return;

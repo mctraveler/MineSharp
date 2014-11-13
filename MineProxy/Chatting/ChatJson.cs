@@ -56,7 +56,7 @@ namespace MineProxy.Chatting
             var json = JsonConvert.DeserializeObject<ChatJson>(raw, jsonSettings);
             #if DEBUG
             var serialized = json.Serialize();
-            if (serialized != raw)
+            if (false && serialized != raw)
             {
                 Debug.WriteLine("Chat RAW: " + raw);
                 Debug.WriteLine("ChatJSON: " + serialized ?? "null");

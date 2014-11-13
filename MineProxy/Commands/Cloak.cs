@@ -96,8 +96,7 @@ namespace MineProxy
                     spawnNamedEntity.Position = rs.Position;
                     spawnNamedEntity.Pitch = rs.Pitch;
                     spawnNamedEntity.Yaw = rs.Yaw;
-                    PlayerList.QueueToAll(spawnNamedEntity);
-                    player.Queue.Queue(new DestroyEntities(rs.EID));
+                    rs.World.SendToAllBut(spawnNamedEntity, player.Session);
 
                     player.Session.World.Send("gamemode 0 " + player.MinecraftUsername);
 
