@@ -150,14 +150,20 @@ namespace MineProxy.Commands
         }
         static void ToRealWorld(Client player, string[] cmd, int iarg)
         {
+            //Unless the world change does not work we give them this workaround
+            player.TellChat(Chat.Yellow, "Please connect your minecraft to " + cmd [iarg] + ".mctraveler.eu");
+            return;
+            #pragma warning disable 162
             VanillaWorld w = World.Main;
             if (iarg < cmd.Length) //we got arguments
             {
                 if (World.VanillaWorlds.ContainsKey(cmd [iarg]) == false)
                     throw new UsageException("No world named " + cmd [iarg]);
+
                 w = World.VanillaWorlds [cmd [iarg]];
             }
             player.SetWorld(w);
+            #pragma warning restore 162
         }
         static void ToIsland(Client player, string[] cmd, int iarg)
         {

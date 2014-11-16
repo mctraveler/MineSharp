@@ -184,8 +184,8 @@ namespace MineProxy.Clients
             SaveProxyPlayer();
 
             string name = h.Host.ToLowerInvariant().Split('.')[0];
-            if (name == "con")
-                SetWorld(World.Construct);
+            if (World.VanillaWorlds.ContainsKey(name))
+                SetWorld(World.VanillaWorlds[name]);
             else
                 SetWorld(World.Main);
             //Handshake complete
