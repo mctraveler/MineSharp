@@ -89,8 +89,8 @@ namespace MineProxy.Packets
                     return new SpawnExperienceOrb();
                 case EntityVelocity.ID:
                     return new EntityVelocity();
-                case DestroyEntities.ID:
-                    return new DestroyEntities();
+                case DestroyEntities.ID: //No need to parse this since EIDs here are probably never for the own player.
+                    return new PassThroughServer();//return new DestroyEntities();
                 case EntityRelativeMove.ID:
                     return new EntityRelativeMove();
                 case EntityLook.ID:
