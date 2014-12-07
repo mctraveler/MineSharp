@@ -6,17 +6,18 @@ namespace MineProxy.Packets
     public class ClientStatus : PacketFromClient
     {
         public const byte ID = 0x16;
+
         public override byte PacketID { get { return ID; } }
-		
+
         public Actions Action { get; set; }
-        
+
         public enum Actions
         {
             Respawn = 0,
             RequestStats = 1,
             OpenAchievements = 2,
         }
-		
+
         public override string ToString()
         {
             return string.Format("[ClientStatuses: {1}]", PacketID, Action);
@@ -26,7 +27,7 @@ namespace MineProxy.Packets
         {
             Action = val;
         }
-		
+
         public ClientStatus()
         {
             
@@ -34,12 +35,12 @@ namespace MineProxy.Packets
 
         protected override void Parse(EndianBinaryReader r)
         {
-            Action = (Actions)r.ReadByte();
+            Action = (Actions)ReadVarInt(r);
         }
-		
+
         protected override void Prepare(EndianBinaryWriter w)
         {
-            w.Write((byte)(Action));
+            WriteVarInt(w, (int)Action);
         }
     }
 }

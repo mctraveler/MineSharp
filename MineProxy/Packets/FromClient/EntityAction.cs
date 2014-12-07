@@ -37,7 +37,7 @@ namespace MineProxy.Packets
         protected override void Parse(EndianBinaryReader r)
         {
             EID = ReadVarInt(r);
-            Action = (Actions)r.ReadByte();
+            Action = (Actions)ReadVarInt(r);
             JumpBoost = ReadVarInt(r);
             #if DEBUGPACKET
             if (Action.ToString() == ((int)Action).ToString())
@@ -48,7 +48,7 @@ namespace MineProxy.Packets
         protected override void Prepare(EndianBinaryWriter w)
         {
             WriteVarInt(w, EID);
-            w.Write((byte)Action);
+            WriteVarInt(w, (int)Action);
             WriteVarInt(w, JumpBoost);
         }
     }
