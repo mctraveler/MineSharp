@@ -23,11 +23,6 @@ namespace MineProxy.Worlds
         /// Directory where the server is stored
         /// </summary>
         public readonly string ServerName;
-        /// <summary>
-        /// Reflects whether the server is running or not
-        /// </summary>
-        public readonly ManualResetEvent Stopped = new ManualResetEvent(true);
-        public readonly ManualResetEvent Running = new ManualResetEvent(false);
 
         /// <summary>
         /// When true it won't automatically start itself
@@ -45,7 +40,8 @@ namespace MineProxy.Worlds
 
         public override string ToString()
         {
-            return string.Format("[" + ServerName + " " + (Running.WaitOne(0) ? "active" : "unloaded") + " " + Players.Length + " players]");
+            var s = BackendManager.GetServer(ServerName);
+            return string.Format("[" + ServerName + " " + (s == null ? "unloaded" : s.ToString()) + " " + Players.Length + " players]");
         }
 
         public VanillaWorld(string name)
@@ -58,8 +54,6 @@ namespace MineProxy.Worlds
             this.Regions = RegionLoader.Load(regionPath);
 
             stopBackend = new Timer(StopBackend, null, -1, -1);
-
-            Stopped.Set();
         }
 
         IPEndPoint GetPortFromProperties(string name)
@@ -171,9 +165,10 @@ namespace MineProxy.Worlds
                 }
 				
                 slotFree:
-					
-                //Wait for server to start
-                Running.WaitOne(30000);
+				
+                var server = BackendManager.StartServer(ServerName);
+                if(server.Running.WaitOne(10) == false)
+                    Log.WriteServer("Timeout waiting for server to start");
 
                 VanillaSession s = CreateSession(player);
                 players.Add(s);
@@ -255,11 +250,11 @@ namespace MineProxy.Worlds
             lock (entities)
             {
                 if (entities.ContainsKey(spawn.EID))
-                    m = entities [spawn.EID] as Mob;
+                    m = entities[spawn.EID] as Mob;
                 if (m == null)
                 {
                     m = new Mob(spawn.EID, spawn.Type);
-                    entities [spawn.EID] = m;
+                    entities[spawn.EID] = m;
                 }
             }
             m.Update(spawn);
@@ -271,11 +266,11 @@ namespace MineProxy.Worlds
             lock (entities)
             {
                 if (entities.ContainsKey(spawn.EID))
-                    m = entities [spawn.EID] as Player;
+                    m = entities[spawn.EID] as Player;
                 if (m == null)
                 {
                     m = new Player(spawn.EID, spawn.PlayerUUID);
-                    entities [spawn.EID] = m;
+                    entities[spawn.EID] = m;
                 }
             }
             m.Update(spawn);
@@ -287,11 +282,11 @@ namespace MineProxy.Worlds
             lock (entities)
             {
                 if (entities.ContainsKey(spawn.EID))
-                    m = entities [spawn.EID] as Vehicle;
+                    m = entities[spawn.EID] as Vehicle;
                 if (m == null)
                 {
                     m = new Vehicle(spawn.EID, spawn.Type);
-                    entities [spawn.EID] = m;
+                    entities[spawn.EID] = m;
                 }
             }
             m.Update(spawn);
@@ -303,11 +298,11 @@ namespace MineProxy.Worlds
             lock (entities)
             {
                 if (entities.ContainsKey(spawn.EID))
-                    m = entities [spawn.EID] as Vehicle;
+                    m = entities[spawn.EID] as Vehicle;
                 if (m == null)
                 {
                     m = new Vehicle(spawn.EID, Vehicles.Frame);
-                    entities [spawn.EID] = m;
+                    entities[spawn.EID] = m;
                 }
             }
         }
@@ -319,7 +314,7 @@ namespace MineProxy.Worlds
                 if (entities.ContainsKey(meta.EID) == false)
                     return;
 
-                entities [meta.EID].Update(meta);
+                entities[meta.EID].Update(meta);
             }
         }
 
@@ -328,7 +323,7 @@ namespace MineProxy.Worlds
             lock (entities)
             {
                 if (entities.ContainsKey(eID))
-                    return entities [eID];
+                    return entities[eID];
                 else
                     return null;
             }

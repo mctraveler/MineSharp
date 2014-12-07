@@ -8,7 +8,7 @@ namespace MineSharp.Wrapper
 {
     public class Server
     {
-        public bool Running { get; private set; }
+        public readonly ManualResetEvent Running = new ManualResetEvent(false);
 
         /// <summary>
         /// for good
@@ -68,7 +68,7 @@ namespace MineSharp.Wrapper
         {
             exit = true;
             SendCommand("stop");
-            if(shutdown.WaitOne(TimeSpan.FromSeconds(30)) == false)
+            if (shutdown.WaitOne(TimeSpan.FromSeconds(30)) == false)
             {
                 //Always kill it
             }
@@ -79,6 +79,7 @@ namespace MineSharp.Wrapper
         {
             Console.WriteLine(this + " " + message);
         }
+
         void Log(Exception e)
         {
             Console.Error.WriteLine(this + " " + e.GetType().Name + ": " + e.Message);
@@ -98,11 +99,11 @@ namespace MineSharp.Wrapper
                 }
 
                 Log("Starting: " + psi.FileName + " " + psi.Arguments);
-                using (Process p = Process.Start (psi))
+                using (Process p = Process.Start(psi))
                 {
                     try
                     {
-                        Running = true;
+                        Running.Set();
                         BackendManager.SendToClients(Name + "\tstarted");
 
                         Console.Error.WriteLine("Minecraft server running");
@@ -120,10 +121,12 @@ namespace MineSharp.Wrapper
                         Log("Exited with code: " + p.ExitCode);
                         olt.Abort();
                         elt.Abort();
-                    } catch (Exception e)
+                    }
+                    catch (Exception e)
                     {
                         Log(e);
-                    } finally
+                    }
+                    finally
                     {
                         lock (processLock)
                         {
@@ -131,11 +134,12 @@ namespace MineSharp.Wrapper
                             process = null;
                         }
 
-                        Running = false;
+                        Running.Reset();
                         try
                         {
                             BackendManager.SendToClients(Name + "\tstopped");
-                        } catch (Exception ex)
+                        }
+                        catch (Exception ex)
                         {
                             Log(ex);
                         }
@@ -160,7 +164,8 @@ namespace MineSharp.Wrapper
 
                     BackendManager.SendToClients(Name + "\tout\t" + line);
 
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     Log(e);
                 }
@@ -189,7 +194,8 @@ namespace MineSharp.Wrapper
                         SendCommand("stop");
                     }
 
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     Log(e);
                 }
@@ -208,14 +214,16 @@ namespace MineSharp.Wrapper
                 {
                     Log("process.Kill()");
                     process.Kill();
-                } catch
+                }
+                catch
                 {
                 }
                 try
                 {
                     Log("kill -kill " + process.Id);
                     Process.Start("/bin/kill", "-kill " + process.Id).WaitForExit();
-                } catch (Exception e2)
+                }
+                catch (Exception e2)
                 {
                     Log(e2);
                 }
@@ -238,7 +246,8 @@ namespace MineSharp.Wrapper
                 try
                 {
                     process.StandardInput.WriteLine(command);
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     Log("Error writing command: " + command);
                     Log(e);
