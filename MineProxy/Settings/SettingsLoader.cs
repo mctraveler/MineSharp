@@ -87,7 +87,7 @@ namespace MineProxy
 
         static void Changed(object sender, FileSystemEventArgs e)
         {
-            if (MainClass.Active == false)
+            if (Program.Active == false)
                 return;
             try
             {

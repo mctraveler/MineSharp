@@ -28,7 +28,7 @@ namespace MineProxy.Worlds
 
         void PingThread(object state)
         {
-            if (MainClass.Active == false)
+            if (Program.Active == false)
             {
                 pingThread.Dispose();
                 return;

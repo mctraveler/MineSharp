@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Threading;
 using MineProxy;
 
-namespace Bot
+namespace MineSharp
 {
     public abstract class TcpWrapper
     {

@@ -194,8 +194,13 @@ namespace MineProxy.Commands
                 {
                     //Does not work in vanilla yet, make warp
                     player.Warp(toPlayer.Session.Position, toPlayer.Session.Dimension, toPlayer.Session.World);
-                } else
-                    player.Session.World.Send("tp " + player.MinecraftUsername + " " + toPlayer.MinecraftUsername);
+                }
+                else
+                {
+                    var vanilla = player.Session.World as VanillaWorld;
+                    if (vanilla != null)
+                        vanilla.Send("tp " + player.MinecraftUsername + " " + toPlayer.MinecraftUsername);
+                }
                 return;
             }
             
@@ -455,7 +460,7 @@ namespace MineProxy.Commands
         {
             string bye = cmd.JoinFrom(1);
             Chatting.Parser.Say(Chat.Pink, "[Restarting] " + bye);
-            MainClass.Shutdown(bye);
+            Program.Shutdown(bye);
             Log.WriteChat(player, null, -1, "[Restarting] " + bye);
         }
        

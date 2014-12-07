@@ -2,8 +2,9 @@ using System;
 using System.Threading;
 using System.IO;
 using System.Diagnostics;
+using MineProxy;
 
-namespace MineWrapper
+namespace MineSharp.Wrapper
 {
     public static class BackupThread
     {
@@ -16,11 +17,6 @@ namespace MineWrapper
             thread.Start();
         }
 
-        public static void Stop()
-        {
-            thread.Interrupt();
-        }
-
         static void BackupThreadRun()
         {
             DateTime nextBackup = DateTime.Now.AddMinutes(30);
@@ -31,7 +27,7 @@ namespace MineWrapper
                 while (true)
                 {
                     //Wait one minute
-                    if (MainClass.Exit.WaitOne(new TimeSpan(0, 1, 0)))
+                    if (Program.Exit.WaitOne(new TimeSpan(0, 1, 0)))
                         break;
 
                     //Watchdog
@@ -47,9 +43,9 @@ namespace MineWrapper
                         //MainClass.SendCommand ("save-off");
 //						MainClass.SendCommand ("tell Player saving to disk");
 //						MainClass.SendCommand ("tell nuxas saving to disk");
-                        MainClass.SendCommandAll("save-all");
+                        BackendManager.SendCommandAll("save-all");
 
-                        if (MainClass.Exit.WaitOne(new TimeSpan(0, 0, 5)))
+                        if (Program.Exit.WaitOne(new TimeSpan(0, 0, 5)))
                             break;
 
                         try
@@ -78,18 +74,18 @@ namespace MineWrapper
 						nextRestart = DateTime.Now.AddHours (6);
 
 						MainClass.SendCommand ("say Scheduled restart, this will take 20 seconds");
-                        if (MainClass.Exit.WaitOne(new TimeSpan(0, 0, 3)))
+                        if (Program.Exit.WaitOne(new TimeSpan(0, 0, 3)))
                             break;
 
 						MainClass.SendCommand ("save-off");
 						MainClass.SendCommand ("save-all");
 
-                        if (MainClass.Exit.WaitOne(new TimeSpan(0, 0, 10)))
+                        if (Program.Exit.WaitOne(new TimeSpan(0, 0, 10)))
                             break;
 
 						MainClass.Kill();
 
-                        if (MainClass.Exit.WaitOne(new TimeSpan(0, 0, 3)))
+                        if (Program.Exit.WaitOne(new TimeSpan(0, 0, 3)))
                             break;
 
 						MainClass.SendCommand ("say Now we should be back up and running");
@@ -113,7 +109,7 @@ namespace MineWrapper
                         } finally
                         {
                             nextBackup = DateTime.Now.AddMinutes(60);
-                            MainClass.SendCommandAll("save-on");
+                            BackendManager.SendCommandAll("save-on");
                         }
                     }
                 }

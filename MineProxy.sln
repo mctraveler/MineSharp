@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MineProxy", "MineProxy\MineProxy.csproj", "{5596FBFD-FF68-4A5F-A142-1F2334966713}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MineWrapper", "MineWrapper\MineWrapper.csproj", "{319D962B-9D65-40B6-A75C-F69A7573AC05}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MineControl", "MineControl\MineControl.csproj", "{619E2E18-7167-493E-9F76-FFA1752E4252}"
 EndProject
 Global
@@ -13,8 +11,6 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{319D962B-9D65-40B6-A75C-F69A7573AC05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{319D962B-9D65-40B6-A75C-F69A7573AC05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5596FBFD-FF68-4A5F-A142-1F2334966713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5596FBFD-FF68-4A5F-A142-1F2334966713}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5596FBFD-FF68-4A5F-A142-1F2334966713}.Release|Any CPU.ActiveCfg = Release|Any CPU

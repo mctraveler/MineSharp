@@ -6,6 +6,7 @@ using MineProxy.Chatting;
 using System.Net;
 using System.Threading;
 using MineProxy.Packets;
+using MineSharp.Wrapper;
 
 namespace MineProxy.Worlds
 {
@@ -78,9 +79,12 @@ namespace MineProxy.Worlds
             throw new InvalidDataException("Missing: server-port");
         }
 
-        public override void Send(string command)
+        public override void Send(string commands)
         {
-            ServerCommander.Send(this, command);
+            var s = BackendManager.GetServer(ServerName);
+            if (s == null)
+                throw new MineProxy.Commands.ErrorException("Server not running");
+            s.SendCommand(commands);
         }
 
         void KickSlot(Client player)
@@ -225,12 +229,12 @@ namespace MineProxy.Worlds
 
             if (Suspended)
                 return;
-            ServerCommander.SendWrapperCommand("start " + ServerName);
+            BackendManager.StartServer(ServerName);
         }
 
         public void StopBackend()
         {
-            ServerCommander.SendWrapperCommand("stop " + ServerName);
+            BackendManager.StopServer(ServerName);
         }
 
         #region Entity Mirror

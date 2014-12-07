@@ -2,8 +2,9 @@ using System;
 using System.Threading;
 using System.Diagnostics;
 using System.IO;
+using MineProxy;
 
-namespace MineWrapper
+namespace MineSharp.Wrapper
 {
     public class Server
     {
@@ -88,7 +89,7 @@ namespace MineWrapper
         {
             Log("run");
 
-            while (MainClass.Exit.WaitOne(0) == false)
+            while (Program.Exit.WaitOne(0) == false)
             {
                 if (exit)
                 {
@@ -102,7 +103,7 @@ namespace MineWrapper
                     try
                     {
                         Running = true;
-                        MainClass.SendToClients(Name + "\tstarted");
+                        BackendManager.SendToClients(Name + "\tstarted");
 
                         Console.Error.WriteLine("Minecraft server running");
                         lock (processLock)
@@ -133,7 +134,7 @@ namespace MineWrapper
                         Running = false;
                         try
                         {
-                            MainClass.SendToClients(Name + "\tstopped");
+                            BackendManager.SendToClients(Name + "\tstopped");
                         } catch (Exception ex)
                         {
                             Log(ex);
@@ -157,7 +158,7 @@ namespace MineWrapper
 
                     LastReceived = DateTime.Now;
 
-                    MainClass.SendToClients(Name + "\tout\t" + line);
+                    BackendManager.SendToClients(Name + "\tout\t" + line);
 
                 } catch (Exception e)
                 {
@@ -177,7 +178,7 @@ namespace MineWrapper
                     if (line == null)
                         return;
 
-                    MainClass.SendToClients(Name + "\terror\t" + line);
+                    BackendManager.SendToClients(Name + "\terror\t" + line);
 
                     LastReceived = DateTime.Now;
 

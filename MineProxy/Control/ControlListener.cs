@@ -25,7 +25,7 @@ namespace MineProxy
 		
         public static void Stop()
         {
-            if (MainClass.Active)
+            if (Program.Active)
                 Log.WriteServer("Expected MainClass.Active to be false");
 
             Console.Write("ControlListener stopping...");
@@ -46,19 +46,19 @@ namespace MineProxy
 		
         private static void Run()
         {
-            while (MainClass.Active)
+            while (Program.Active)
             {
                 TcpListener listener = new TcpListener(IPAddress.Loopback, port);
                 try
                 {
                     listener.Start();
 					
-                    while (MainClass.Active)
+                    while (Program.Active)
                     {
                         Console.WriteLine("Listening for controller on " + port);
 					
                         TcpClient client = listener.AcceptTcpClient();
-                        if (MainClass.Active == false)
+                        if (Program.Active == false)
                             return;
                         Console.WriteLine("New controller connected");
 					

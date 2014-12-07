@@ -126,7 +126,7 @@ namespace MineProxy
                             Log.WriteServer("Automatic Restart of Proxy, Unknown memory usage");
                             World.Main.Say(Chat.Purple + "[SERVER] ", reason + " NOW!");
                             World.Main.Send("stop");
-                            MainClass.Shutdown(reason);
+                            Program.Shutdown(reason);
                             return;
                         }
                         proxyCountdown -= 1;

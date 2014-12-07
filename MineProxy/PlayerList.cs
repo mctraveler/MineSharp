@@ -354,7 +354,7 @@ namespace MineProxy
         {
             try
             {
-                if (MainClass.Active == false)
+                if (Program.Active == false)
                 {
                     updater.Dispose();
                     return;

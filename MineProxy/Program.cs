@@ -2,15 +2,15 @@ using System;
 using System.Net.Sockets;
 using System.Net;
 using System.IO;
-using Bot;
 using MineProxy.Query;
 using MineProxy.Chatting;
 using MineProxy.Worlds;
 using MineProxy.Clients;
+using System.Threading;
 
 namespace MineProxy
 {
-    class MainClass
+    class Program
     {
         static TcpListener listener = null;
 
@@ -46,9 +46,11 @@ namespace MineProxy
             MineProxy.Regions.WarpPortalVisuals.Init();
 			
             //VoteListener.Start();
-            ServerCommander.Startup();
             ControlListener.Start(controllerPort);
             BackupProxy.Start();
+            #if !DEBUG
+            MineSharp.Wrapper.BackupThread.Start();
+            #endif
 
             try
             {
@@ -56,12 +58,15 @@ namespace MineProxy
                 //SpawnRegion.Start ();
                 SettingsLoader.Start();
                 QueryListener.Start();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Log.WriteServer(e);
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
+
+            MineSharp.Wrapper.BackendManager.Start();
 
             while (true)
             {
@@ -89,7 +94,8 @@ namespace MineProxy
                                 try
                                 {
                                     client.Close();
-                                } catch (Exception e)
+                                }
+                                catch (Exception e)
                                 {
                                     Log.WriteServer("Error closing banned ip", e);
                                 }
@@ -98,12 +104,14 @@ namespace MineProxy
                             
                             Client proxy = new VanillaClient(client.Client);
                             proxy.Start();
-                        } catch (SocketException)
+                        }
+                        catch (SocketException)
                         {
                             try
                             {
                                 client.Close();
-                            } catch
+                            }
+                            catch
                             {
                             }
                         }
@@ -117,7 +125,6 @@ namespace MineProxy
                     }
 
                     Log.Flush();
-                    ServerCommander.Shutdown();
                     ControlListener.Stop();
                     return;
 			
@@ -128,7 +135,8 @@ namespace MineProxy
                     Log.WriteServer("MainClass.Main general", e);
                     System.Threading.Thread.Sleep(500);
 #endif
-                } finally
+                }
+                finally
                 {
                     Console.WriteLine(DateTime.Now + " Main loop finally Start");
                     try
@@ -136,7 +144,8 @@ namespace MineProxy
                         //Save region stats
                         RegionLoader.Save(World.Main.Regions);
                         Regions.WarpPortalVisuals.Stop();
-                    } catch (Exception e)
+                    }
+                    catch (Exception e)
                     {
                         Log.WriteServer("Main closing region stats saving", e);
                     }
@@ -156,16 +165,21 @@ namespace MineProxy
             }
         }
 
+        public static ManualResetEvent Exit = new ManualResetEvent(false);
         public static bool Active = true;
         static string ShutdownMessage = "Bye(generic restart)";
 
         public static void Shutdown(string message)
         {
             ShutdownMessage = Chat.Purple + "Restarting... " + Chat.Gold + message;
+
             Active = false;
+            Exit.Set();
+
             using (TcpClient t = new TcpClient())
                 t.Connect(IPAddress.Loopback, MinecraftServer.MainPort);
-			
+
+            MineSharp.Wrapper.BackendManager.Shutdown();
         }
     }
 }

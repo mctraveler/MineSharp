@@ -1,6 +1,6 @@
 using System;
 
-namespace MineWrapper
+namespace MineSharp.Wrapper
 {
     public static class Watchdog
     {
@@ -8,7 +8,7 @@ namespace MineWrapper
 
         public static void Test()
         {
-            foreach (Server s in MainClass.GetServers())
+            foreach (Server s in BackendManager.GetServers())
                 Test(s);
         }
 
@@ -30,7 +30,7 @@ namespace MineWrapper
                     continue;
                 }
                 //Triggered
-                MainClass.Log(new Exception("Watchdog: " + s.Name));
+                BackendManager.Log(new Exception("Watchdog: " + s.Name));
                 s.Kill();
                 break;
             }

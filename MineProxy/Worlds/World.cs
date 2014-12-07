@@ -33,7 +33,8 @@ namespace MineProxy.Worlds
 
         public virtual void Send(string commands)
         {
-            //throw new InvalidOperationException("Not a vanilla world");
+            //Only called by user commands, never by internal code
+            throw new MineProxy.Commands.ErrorException("Not a vanilla world");
         }
 
         public static readonly VanillaWorld Main = new VanillaWorld("main");

@@ -61,13 +61,13 @@ namespace MineProxy
             BinaryReader r = new BinaryReader(stream);
             BinaryWriter w = new BinaryWriter(stream);
         
-            while (MainClass.Active)
+            while (Program.Active)
             {
                 int length = r.ReadInt32();
                 byte[] packet = r.ReadBytes(length);
                 string json = Encoding.UTF8.GetString(packet);
                 ControlMessage c = JsonConvert.DeserializeObject<ControlMessage>(json);
-                if (MainClass.Active == false)
+                if (Program.Active == false)
                     return;
                 
                 try

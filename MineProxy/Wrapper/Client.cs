@@ -4,8 +4,9 @@ using System.Threading;
 using System.IO;
 using System.Text;
 using System.Net;
+using MineProxy;
 
-namespace MineWrapper
+namespace MineSharp.Wrapper
 {
     class Client : IDisposable
     {
@@ -41,13 +42,13 @@ namespace MineWrapper
         {
             try
             {
-                SendLine(MainClass.RunningServers());
+                SendLine(BackendManager.RunningServers());
 
                 while (active)
                 {
                     try
                     {
-                        if (MainClass.Exit.WaitOne(0))
+                        if (Program.Exit.WaitOne(0))
                             break;
 
                         string line = reader.ReadLine();
@@ -67,13 +68,13 @@ namespace MineWrapper
                         continue;
                     } catch (Exception e)
                     {
-                        MainClass.Log(e);
+                        BackendManager.Log(e);
                         return;
                     }
                 }
             } finally
             {
-                MainClass.ClientClosed(this);
+                BackendManager.ClientClosed(this);
                 tcp.Close();
             }
         }
@@ -83,13 +84,13 @@ namespace MineWrapper
             switch (args [0])
             {
                 case "list":
-                    SendLine(MainClass.RunningServers());
+                    SendLine(BackendManager.RunningServers());
                     return;
 
                 case "shutdown":
                     Console.WriteLine("Got Shutdown command");
                     SendLine("shutting down");
-                    MainClass.Shutdown();
+                    Program.Shutdown((args.Length > 1) ? string.Join(" ", args, 1, args.Length - 1) : "Admin initated restart");
                     active = false;
                     return;
 
@@ -103,7 +104,7 @@ namespace MineWrapper
                         throw new InvalidArgumentException("Usage: stop <name>");
 
                     Console.WriteLine("Got Suspend command: " + args [1]);
-                    if (MainClass.StopServer(args [1]))
+                    if (BackendManager.StopServer(args [1]))
                         SendLine("stopped " + args [1]);
                     else
                         SendLine("not running " + args [1]);
@@ -114,16 +115,8 @@ namespace MineWrapper
                         throw new InvalidArgumentException("Usage: start <name>");
 
                     Console.WriteLine("Got Resume command");
-                    Server s = MainClass.StartServer(args [1]);
+                    Server s = BackendManager.StartServer(args [1]);
                     SendLine("running\t" + s);
-                    return;
-
-                case "noecho":
-                    this.Echo = false;
-                    return;
-
-                case "killjava":
-                    MainClass.KillAllJava();
                     return;
             }
 
@@ -134,7 +127,7 @@ namespace MineWrapper
             if (args.Length < 2)
                 throw new InvalidArgumentException("Usage: <serverName> command");
 
-            Server server = MainClass.GetServer(args [0]);
+            Server server = BackendManager.GetServer(args [0]);
             if (server == null)
                 throw new InvalidArgumentException("No such running server: " + args [0]);
 
@@ -159,7 +152,7 @@ namespace MineWrapper
                 return;
             } catch (Exception e)
             {
-                MainClass.Log(e);
+                BackendManager.Log(e);
             }
         }
 

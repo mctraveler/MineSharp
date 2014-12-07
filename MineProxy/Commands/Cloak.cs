@@ -98,13 +98,13 @@ namespace MineProxy
                     spawnNamedEntity.Yaw = rs.Yaw;
                     rs.World.SendToAllBut(spawnNamedEntity, player.Session);
 
-                    player.Session.World.Send("gamemode 0 " + player.MinecraftUsername);
+                    rs.Vanilla.Send("gamemode 0 " + player.MinecraftUsername);
 
                 } else
                 {
                     PlayerList.QueueToAll(new DestroyEntities(rs.EID));
 
-                    player.Session.World.Send("gamemode 1 " + player.MinecraftUsername);
+                    rs.Vanilla.Send("gamemode 1 " + player.MinecraftUsername);
                 }
             }
 

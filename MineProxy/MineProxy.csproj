@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>MineProxy</RootNamespace>
     <AssemblyName>MineProxy</AssemblyName>
-    <StartupObject>MineProxy.MainClass</StartupObject>
+    <StartupObject>MineProxy.Program</StartupObject>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -49,10 +49,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="PlayerList.cs" />
-    <Compile Include="ServerCommander.cs" />
     <Compile Include="Regions\WorldRegion.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Regions\SpawnRegion.cs" />
@@ -335,6 +333,13 @@
     </Compile>
     <Compile Include="Network\AuthResponse.cs" />
     <Compile Include="Settings\SettingsLoader.cs" />
+    <Compile Include="Wrapper\BackupThread.cs" />
+    <Compile Include="Wrapper\Client.cs" />
+    <Compile Include="Wrapper\InvalidArgumentException.cs" />
+    <Compile Include="Wrapper\Server.cs" />
+    <Compile Include="Wrapper\Watchdog.cs" />
+    <Compile Include="Wrapper\BackendManager.cs" />
+    <Compile Include="Program.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -359,6 +364,7 @@
     <Folder Include="Packets\Plugins\" />
     <Folder Include="Packets\Status\" />
     <Folder Include="Control\" />
+    <Folder Include="Wrapper\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GeoIPCountryWhois.csv">

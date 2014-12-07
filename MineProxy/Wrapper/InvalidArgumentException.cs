@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using System.Net;
 
-namespace MineWrapper
+namespace MineSharp.Wrapper
 {
     class InvalidArgumentException : Exception
     {

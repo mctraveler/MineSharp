@@ -7,12 +7,15 @@ using System.Net;
 using System.Net.Sockets;
 using System.Collections.Generic;
 using System.Text;
+using MineProxy;
 
-namespace MineWrapper
+namespace MineSharp.Wrapper
 {
-    class MainClass
+    /// <summary>
+    /// Manages start and stop of the backend, the vanilla java servers.
+    /// </summary>
+    class BackendManager
     {
-        public static ManualResetEvent Exit = new ManualResetEvent(false);
         const int ControlPort = 25765;
 
         /// <summary>
@@ -24,22 +27,14 @@ namespace MineWrapper
         /// </summary>
         static List<Client> clients = new List<Client>();
 
-        public static void Main()
+        public static void Start()
         {
-            Directory.SetCurrentDirectory(MineSharp.Settings.BaseWorldsPath);
-
-            Console.WriteLine("Hello Minecraft World!");
-            
-            Console.CancelKeyPress += HandleCancelKeyPress;
-
             Thread tcpListener = new Thread(TcpListener);
             tcpListener.Start();
 
-            #if !DEBUG
-            BackupThread.Start();
-            #endif
-
             Console.WriteLine("Control Listening on port: " + ControlPort);
+
+            KillAllJava();
 
             //Start main
             try
@@ -50,43 +45,27 @@ namespace MineWrapper
             {
                 Console.WriteLine("While starting main: " + ex.Message);
             }
-
-            Exit.WaitOne();
-             
-            //Trigger close of listener
-            TcpClient tcpCloser = new TcpClient();
-            tcpCloser.Connect(new IPEndPoint(IPAddress.Loopback, ControlPort));
-            tcpCloser.Close();
-            tcpListener.Join();
-
-            BackupThread.Stop();
-
-            Client[] clist;
-            lock (clients)
-                clist = clients.ToArray();
-            foreach (Client c in clist)
-                c.Stop();
-        }
-
-        static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)
-        {
-            Console.WriteLine("Shutting down...");
-            Shutdown();
         }
 
         public static void Shutdown()
         {
             lock (servers)
             {
-                Exit.Set();
-
                 foreach (var s in GetServers())
-                    s.SendCommand("stop");
+                    s.Stop();
+            }
+            Thread.Sleep(2000);
+            lock (servers)
+            {
+                foreach (var s in GetServers())
+                    s.Kill();
             }
         }
 
-        public static void KillAllJava()
+
+        static void KillAllJava()
         {
+            #if !DEBUG
             try
             {
                 Process.Start("/usr/bin/pkill", "-kill java").WaitForExit();
@@ -95,6 +74,7 @@ namespace MineWrapper
             {
                 Log(ex);
             }
+            #endif
         }
 
         public static void SendCommandAll(string command)
@@ -180,7 +160,7 @@ namespace MineWrapper
                 TcpClient tc = listener.AcceptTcpClient();
                 if (tc == null)
                     continue;
-                if (MainClass.Exit.WaitOne(0) == true)
+                if (Program.Exit.WaitOne(0) == true)
                     return;
                 Client c = new Client(tc);
                 Console.WriteLine("New client: " + c);
